@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="justify-content: flex-start; align-items: flex-start; position: absolute; width: 234px; height: 100px; margin-left: 5px; margin-right: 20px; margin-top: 50px; margin-bottom: 20px; bottom: auto; left: 8px; top: 12px;">
+        <ui:Label text="Tips:" display-tooltip-when-elided="true" name="Label" style="color: rgb(255, 255, 255); font-size: 16px;" />
+        <ui:Label text="To launch rocket - press &quot;E&quot;" display-tooltip-when-elided="true" name="Label" style="font-size: 14px; color: rgb(255, 255, 255);" />
+        <ui:Label text="To boost rocket - press &quot;F&quot;" display-tooltip-when-elided="true" name="Label" style="color: rgb(255, 255, 255); font-size: 14px;" />
+        <ui:Label text="Goal: Bring rocket to landing platform" display-tooltip-when-elided="true" name="Label" style="color: rgb(255, 255, 255); font-size: 14px;" />
+    </ui:VisualElement>
+</ui:UXML>

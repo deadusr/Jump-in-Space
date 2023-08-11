@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="justify-content: center; align-items: center; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; display: none;">
+        <ui:Label text="Level finished!" display-tooltip-when-elided="true" name="LevelInfo" style="font-size: 18px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;" />
+        <ui:Button text="Next level" display-tooltip-when-elided="true" name="NextLevelButton" style="width: 150px; height: 50px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 14px; border-bottom-left-radius: 14px; border-top-right-radius: 14px; border-bottom-right-radius: 14px; background-color: rgb(95, 43, 224); color: rgb(255, 255, 255); font-size: 16px; -unity-font-style: bold;" />
+    </ui:VisualElement>
+</ui:UXML>
