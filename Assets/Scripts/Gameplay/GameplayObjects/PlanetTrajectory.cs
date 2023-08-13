@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JumpInSpace.Utils;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using UnityEngine;
-using Utils;
 
 public class PlanetTrajectory : MonoBehaviour {
 

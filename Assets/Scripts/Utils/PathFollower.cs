@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using JumpInSpace.Utils;
 using UnityEngine;
 using UnityEditor;
-using Utils;
 
 public class PathFollower : MonoBehaviour {
     [SerializeField]

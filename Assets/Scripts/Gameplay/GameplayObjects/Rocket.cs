@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using JumpInSpace.Utils;
 using UnityEngine;
-using Utils;
 
 public class Rocket : MonoBehaviour {
     [SerializeField]
@@ -165,11 +165,14 @@ public class Rocket : MonoBehaviour {
 
     [CanBeNull]
     Planet FindPlanetWithActingGravity() {
-        foreach (var planet in PlanetController.Instance.Planets) {
+        foreach (var planet in GameObject.FindObjectsOfType<Planet>()) {
             if (!ReferenceEquals(lastPlanetWithActingGravity, planet) && planet.InsideGravity(rocket.position)) {
                 return planet;
             }
         }
+        // foreach (var planet in PlanetController.Instance.Planets) {
+        //     
+        // }
         return null;
     }
 

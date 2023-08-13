@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlanetName {
-    Moon,
-    Mars,
-    Neptune
-}
 public class PlanetController : MonoBehaviour {
     public static PlanetController Instance { get; private set; }
 

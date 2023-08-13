@@ -1,22 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using JumpInSpace.UI;
 
 public class Meteoroid : MonoBehaviour {
-    
-    [SerializeField]
-    float speed = 0;
 
     [SerializeField]
     GameplayUI gameplayUI;
-
-    [SerializeField]
-    Path followPath;
-
-    void Start() {
-        if (followPath) {
-            followPath.FollowPath(transform, speed);
-        }
-    }
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.TryGetComponent(out Rocket launcher)) {

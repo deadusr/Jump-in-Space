@@ -1,5 +1,7 @@
 ﻿using System;
+using JumpInSpace.Gameplay;
 using UnityEngine;
+using JumpInSpace.UI;
 
 public class FinishLine : MonoBehaviour {
 

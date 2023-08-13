@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Utils {
+namespace JumpInSpace.Utils {
     public class InputController : MonoBehaviour {
 
         public static InputController Instance { get; private set; }

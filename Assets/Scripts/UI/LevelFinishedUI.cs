@@ -3,35 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using JumpInSpace.Gameplay;
 
-public class LevelFinishedUI : MonoBehaviour {
+namespace JumpInSpace.UI {
+    public class LevelFinishedUI : MonoBehaviour {
 
-    Button nextLevelButton;
-    TextElement levelInfo;
-    VisualElement root;
+        Button nextLevelButton;
+        TextElement levelInfo;
+        VisualElement root;
 
-    void Start() {
-        UIDocument UIDocument = GetComponent<UIDocument>();
-        
-        var rootEl = UIDocument.rootVisualElement;
+        void Start() {
+            UIDocument UIDocument = GetComponent<UIDocument>();
 
-        nextLevelButton = rootEl.Q<Button>("NextLevelButton");
-        levelInfo = rootEl.Q<TextElement>("LevelInfo");
-        root = rootEl.Q<VisualElement>("Root");
-        
-        nextLevelButton.clicked += OnClickNextLevelButton;
-    }
+            var rootEl = UIDocument.rootVisualElement;
 
-    void OnClickNextLevelButton() {
-        GameplayController.Instance.NextLevel();
-    }
+            nextLevelButton = rootEl.Q<Button>("NextLevelButton");
+            levelInfo = rootEl.Q<TextElement>("LevelInfo");
+            root = rootEl.Q<VisualElement>("Root");
 
-    public void ShowPanel() {
-        root.style.display = DisplayStyle.Flex;
+            nextLevelButton.clicked += OnClickNextLevelButton;
+        }
 
-    }
+        void OnClickNextLevelButton() {
+            GameplayController.Instance.NextLevel();
+        }
 
-    public void HidePanel() {
-        root.style.display = DisplayStyle.None;
+        public void ShowPanel() {
+            root.style.display = DisplayStyle.Flex;
+
+        }
+
+        public void HidePanel() {
+            root.style.display = DisplayStyle.None;
+        }
     }
 }

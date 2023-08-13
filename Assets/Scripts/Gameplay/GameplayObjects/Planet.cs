@@ -15,9 +15,6 @@ public class Planet : MonoBehaviour {
     float gravityRadius;
 
     [SerializeField]
-    PlanetName planetName;
-
-    [SerializeField]
     [Range(1, 3)]
     float gravityAngularSpeed = 1f;
 
@@ -28,9 +25,9 @@ public class Planet : MonoBehaviour {
     public float GravityAngularSpeed => gravityAngularSpeed;
 
 
-    void Start() {
-        PlanetController.Instance.AddPlanet(this);
-    }
+    // void Start() {
+    //     PlanetController.Instance.AddPlanet(this);
+    // }
 
     void OnDrawGizmos() {
 #if UNITY_EDITOR

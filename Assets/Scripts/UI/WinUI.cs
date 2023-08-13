@@ -3,34 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using JumpInSpace.Gameplay;
 
-public class WinUI : MonoBehaviour {
+namespace JumpInSpace.UI {
+    public class WinUI : MonoBehaviour {
 
-    Button quitButton;
-    TextElement gameSessionInfo;
-    VisualElement root;
+        Button quitButton;
+        TextElement gameSessionInfo;
+        VisualElement root;
 
-    void Start() {
-        UIDocument UIDocument = GetComponent<UIDocument>();
-        
-        var rootEl = UIDocument.rootVisualElement;
-        root = rootEl.Q<VisualElement>("Root");
-        quitButton = rootEl.Q<Button>("QuitButton");
-        gameSessionInfo = rootEl.Q<TextElement>("GameSessionInfo");
+        void Start() {
+            UIDocument UIDocument = GetComponent<UIDocument>();
 
-        quitButton.clicked += OnClickQuitButton;
-    }
+            var rootEl = UIDocument.rootVisualElement;
+            root = rootEl.Q<VisualElement>("Root");
+            quitButton = rootEl.Q<Button>("QuitButton");
+            gameSessionInfo = rootEl.Q<TextElement>("GameSessionInfo");
 
-    void OnClickQuitButton() {
-        GameplayController.Instance.QuitGame();
-    }
+            quitButton.clicked += OnClickQuitButton;
+        }
 
-    public void ShowPanel() {
-        root.style.display = DisplayStyle.Flex;
+        void OnClickQuitButton() {
+            GameplayController.Instance.QuitGame();
+        }
 
-    }
+        public void ShowPanel() {
+            root.style.display = DisplayStyle.Flex;
 
-    public void HidePanel() {
-        root.style.display = DisplayStyle.None;
+        }
+
+        public void HidePanel() {
+            root.style.display = DisplayStyle.None;
+        }
     }
 }
+

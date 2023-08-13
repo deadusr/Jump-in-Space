@@ -3,22 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using JumpInSpace.Gameplay;
 
-public class MainMenuUI : MonoBehaviour {
+namespace JumpInSpace.UI {
+    public class MainMenuUI : MonoBehaviour {
 
-    Button playButton;
-    VisualElement root;
+        Button playButton;
 
-    void Start() {
-        UIDocument UIDocument = GetComponent<UIDocument>();
+        void Start() {
+            UIDocument UIDocument = GetComponent<UIDocument>();
 
-        var rootEl = UIDocument.rootVisualElement;
-        root = rootEl.Q<VisualElement>("Root");
-        playButton = rootEl.Q<Button>("PlayButton");
-        playButton.clicked += OnClickPlayButton;
+            var rootEl = UIDocument.rootVisualElement;
+            playButton = rootEl.Q<Button>("PlayButton");
+            playButton.clicked += OnClickPlayButton;
+        }
+
+        void OnClickPlayButton() {
+            GameplayController.Instance.StartGame();
+        }
     }
-
-    void OnClickPlayButton() {
-        GameplayController.Instance.StartGame();
-    }
+    
 }
+

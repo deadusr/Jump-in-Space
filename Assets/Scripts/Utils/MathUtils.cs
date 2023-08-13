@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils {
+namespace JumpInSpace.Utils {
     public static class MathFG {
         public const float TAU = 6.2831855f;
 

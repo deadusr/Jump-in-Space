@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using JumpInSpace.Gameplay;
 using UnityEngine;
+using JumpInSpace.UI;
 
 public class PlayerController : MonoBehaviour {
     [SerializeField]
