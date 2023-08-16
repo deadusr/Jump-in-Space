@@ -1,9 +1,8 @@
 {
-  "name": "JumpInSpace.Gameplay",
+  "name": "JumpInSpace.SaveSystem",
   "rootNamespace": "",
   "references": [
-    "JumpInSpace.Utils",
-    "JumpInSpace.SaveSystem"
+    "JumpInSpace.Editor"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

@@ -1,16 +1,15 @@
 ﻿using System;
+using JumpInSpace.Gameplay;
 using UnityEngine;
-using JumpInSpace.UI;
 
-public class Meteoroid : MonoBehaviour {
+namespace JumpInSpace.Gameplay.GameplayObjects {
+    public class Meteoroid : MonoBehaviour {
 
-    [SerializeField]
-    GameplayUI gameplayUI;
-
-    void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.TryGetComponent(out Rocket launcher)) {
-            launcher.BlowUp();
-            gameplayUI.ShowLosePanel("BOOM!!! Your rocket is blown");
+        void OnTriggerEnter2D(Collider2D other) {
+            if (other.gameObject.TryGetComponent(out Rocket launcher)) {
+                launcher.BlowUp();
+                GameplayController.Instance.LoseGame("BOOM!!! Your rocket is blown");
+            }
         }
     }
 }

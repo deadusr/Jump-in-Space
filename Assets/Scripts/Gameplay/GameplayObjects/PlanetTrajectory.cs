@@ -7,38 +7,34 @@ using UnityEditor;
 #endif
 using UnityEngine;
 
-public class PlanetTrajectory : MonoBehaviour {
+namespace JumpInSpace.Gameplay.GameplayObjects {
+    public class PlanetTrajectory : MonoBehaviour {
 
-    [SerializeField]
-    Transform planet;
+        [SerializeField]
+        float speed = 7f;
 
-    [SerializeField]
-    float speed = 7f;
+        [SerializeField]
+        [Range(0, 10)]
+        float trajectoryRadius = 2f;
 
-    [SerializeField]
-    [Range(0, 10)]
-    float trajectoryRadius = 2f;
+        [SerializeField]
+        [Range(-1, 1)]
+        int rotation = -1;
 
-    [SerializeField]
-    [Range(-1, 1)]
-    int rotation = -1;
 
-    float angleRad;
-
-    void OnDrawGizmos() {
+        void OnDrawGizmos() {
 #if UNITY_EDITOR
-        Handles.color = Color.magenta;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, trajectoryRadius);
+            Handles.color = Color.magenta;
+            Handles.DrawWireDisc(transform.position, Vector3.forward, trajectoryRadius);
 #endif
+        }
+
+        public Vector3 GetNextPosition(Vector3 position) {
+            float angleRad = MathFG.DirToAng(position - transform.position);
+            angleRad += Time.deltaTime * speed * -rotation;
+
+            return transform.position + (Vector3)(MathFG.AngToDir(angleRad) * trajectoryRadius);
+        }
     }
 
-
-    void Start() {
-        angleRad = MathFG.DirToAng(planet.position - transform.position);
-    }
-
-    void Update() {
-        angleRad += Time.deltaTime * speed * -rotation;
-        planet.position = transform.position + (Vector3)(MathFG.AngToDir(angleRad) * trajectoryRadius);
-    }
 }

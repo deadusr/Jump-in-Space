@@ -1,32 +1,49 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using JumpInSpace.Gameplay.GameplayObjects;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using JumpInSpace.SaveSystem;
+using JumpInSpace.Gameplay.UI;
 
 namespace JumpInSpace.Gameplay {
     public class GameplayController : MonoBehaviour {
-        public static GameplayController Instance;
+        public static GameplayController Instance { get; private set; }
 
         [SerializeField]
-        public int LevelsCount = 1;
+        LevelFinishedUI levelFinishedUI;
 
-        public int CurrentLevel = 1;
+        [SerializeField]
+        WinUI winUI;
+
+        [SerializeField]
+        GameplayUI gameplayUI;
+
+        [SerializeField]
+        int levelsCount = 1;
+
+        int currentLevel = 1;
+
+        public int CurrentLevel => currentLevel;
+        public int LevelsCount => levelsCount;
+
         void Awake() {
             DontDestroyOnLoad(gameObject);
-            MakeInstance();
-        }
-
-        void MakeInstance() {
-            if (Instance == null) {
+            if (Instance != null && Instance != this) {
+                Destroy(this);
+            }
+            else {
                 Instance = this;
             }
         }
 
-        public bool HasNextLevel => CurrentLevel < LevelsCount;
+        public bool HasNextLevel => currentLevel < levelsCount;
 
         public void NextLevel() {
-            Debug.Log($"Level {CurrentLevel} finished");
+            Debug.Log($"Level {currentLevel} finished");
             if (HasNextLevel) {
-                CurrentLevel += 1;
+                currentLevel += 1;
                 StartLevel();
             }
         }
@@ -37,7 +54,20 @@ namespace JumpInSpace.Gameplay {
         }
 
         void StartLevel() {
-            UnityEngine.SceneManagement.SceneManager.LoadScene($"GameplayLevel{CurrentLevel}");
+            LoadSavedGame();
+            // StartCoroutine(LoadSceneAsync($"GameplayLevel{CurrentLevel}"));
+        }
+
+
+        IEnumerator LoadSceneAsync(string path) {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(path);
+
+            // Wait until the asynchronous scene fully loads
+            while (!asyncLoad.isDone) {
+                yield return null;
+            }
+            Debug.Log("Scene loaded");
+            LoadSavedGame();
         }
 
         public void PauseGame() {
@@ -48,6 +78,24 @@ namespace JumpInSpace.Gameplay {
             Time.timeScale = 1f;
         }
 
+
+        public void SaveGame() {
+            SaveSystemController.Instance.Save();
+        }
+
+        void LoadSavedGame() {
+            var save = SaveSystemController.Instance.LoadSave();
+            if (save == null) {
+                return;
+            }
+
+            foreach (var savable in FindObjectsOfType<Savable>()) {
+                string id = savable.GetComponent<GenID>().Id;
+                savable.ApplySave(save.Value.Positions[id], save.Value.Rotations[id]);
+            }
+
+        }
+
         public void QuitGame() {
             Time.timeScale = 1f;
             Application.Quit();
@@ -56,6 +104,7 @@ namespace JumpInSpace.Gameplay {
 
         public void ReplayGame() {
             StartGame();
+            gameplayUI.HideLosePanel();
         }
 
         public void WinGame() {
@@ -63,9 +112,23 @@ namespace JumpInSpace.Gameplay {
             Debug.Log("Player win!");
         }
 
+        public void FinishLevel() {
+            if (HasNextLevel) {
+                levelFinishedUI.ShowPanel();
+            }
+            else {
+                winUI.ShowPanel();
+            }
+        }
+
+        public void LoseGame(string reason) {
+            gameplayUI.ShowLosePanel(reason);
+            PauseGame();
+        }
+
 
         public void MenuButton() {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

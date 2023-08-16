@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-
-public class Node : MonoBehaviour {
+namespace JumpInSpace.Utils {
+    public class Node : MonoBehaviour {
+    }
+    
 }
+

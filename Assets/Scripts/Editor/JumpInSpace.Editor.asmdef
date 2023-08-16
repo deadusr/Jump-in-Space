@@ -1,11 +1,7 @@
 {
-    "name": "JumpInSpace.Gameplay.GameplayObjects",
+    "name": "JumpInSpace.Editor",
     "rootNamespace": "",
-    "references": [
-        "JumpInSpace.UI",
-        "JumpInSpace.Gameplay",
-        "JumpInSpace.Utils"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

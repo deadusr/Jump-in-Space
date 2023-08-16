@@ -5,175 +5,167 @@ using JetBrains.Annotations;
 using JumpInSpace.Utils;
 using UnityEngine;
 
-public class Rocket : MonoBehaviour {
-    [SerializeField]
-    Transform rocket;
+namespace JumpInSpace.Gameplay.GameplayObjects {
+    public class Rocket : MonoBehaviour {
+        [SerializeField]
+        Transform rocket;
 
-    [SerializeField]
-    float baseRocketSpeed = 10f;
+        [SerializeField]
+        float baseRocketSpeed = 10f;
 
-    [SerializeField]
-    float boostMultiplier = 1.5f;
+        [SerializeField]
+        float boostMultiplier = 1.5f;
 
-    [SerializeField]
-    float boostTime = 1f;
+        [SerializeField]
+        float boostTime = 1f;
 
-    [CanBeNull]
-    Planet planetWithActingGravity;
-    [CanBeNull]
-    Planet lastPlanetWithActingGravity;
+        [CanBeNull]
+        Planet planetWithActingGravity;
+        [CanBeNull]
+        Planet lastPlanetWithActingGravity;
 
-    bool rocketLaunched;
-    int steeringRotation = -1; // -1 right, 1 left
-    float boostSpeed;
+        bool rocketLaunched;
+        int steeringRotation = -1; // -1 right, 1 left
+        float boostSpeed;
 
-    float distancePassed;
-    float rocketSpeed;
+        float distancePassed;
+        float rocketSpeed;
 
-    Vector2 startPosition;
-
-
-    void Start() {
-        InputController.Instance.Interact += OnInteract;
-        rocketSpeed = baseRocketSpeed;
-        startPosition = rocket.position;
-    }
+        Vector2 startPosition;
 
 
-    void OnDestroy() {
-        InputController.Instance.Interact -= OnInteract;
-    }
-
-    void OnInteract() {
-        if (rocketLaunched) {
-            Boost();
+        void Start() {
+            InputController.Instance.Interact += OnInteract;
+            rocketSpeed = baseRocketSpeed;
+            startPosition = rocket.position;
         }
-        else {
-            LaunchRocket();
+
+
+        void OnDestroy() {
+            InputController.Instance.Interact -= OnInteract;
         }
-    }
 
-    void LaunchRocket() {
-        if (!rocketLaunched) {
-            rocketLaunched = true;
+        void OnInteract() {
+            if (rocketLaunched) {
+                Boost();
+            }
+            else {
+                LaunchRocket();
+            }
         }
-    }
 
-    void Boost() {
-        StartCoroutine(LeavePlanetGravity());
-        StartCoroutine(BoostRocket());
-    }
-
-
-    IEnumerator BoostRocket() {
-        float targetSpeed = rocketSpeed * boostMultiplier;
-        float t = 0;
-
-        while (t < boostTime) {
-            boostSpeed = GetBoostSpeed(t, targetSpeed);
-            t += Time.deltaTime;
-            yield return null;
+        public void LaunchRocket() {
+            if (!rocketLaunched) {
+                rocketLaunched = true;
+            }
         }
-        boostSpeed = 0;
-    }
 
-
-    float GetBoostSpeed(float t, float maxSpeed) {
-        float timeToAccelerate = boostTime * 0.2f;
-        float timeToDecelerate = boostTime * 0.8f;
-
-        if (t < timeToAccelerate) {
-            return (t / timeToAccelerate) * maxSpeed;
+        void Boost() {
+            StartCoroutine(LeavePlanetGravity());
+            StartCoroutine(BoostRocket());
         }
-        if (t > boostTime - timeToDecelerate) {
-            float t2 = t - (boostTime - timeToDecelerate);
-            return maxSpeed - (t2 / timeToDecelerate) * maxSpeed;
+
+
+        IEnumerator BoostRocket() {
+            float targetSpeed = rocketSpeed * boostMultiplier;
+            float t = 0;
+
+            while (t < boostTime) {
+                boostSpeed = GetBoostSpeed(t, targetSpeed);
+                t += Time.deltaTime;
+                yield return null;
+            }
+            boostSpeed = 0;
         }
-        return maxSpeed;
-    }
 
-    IEnumerator LeavePlanetGravity() {
-        lastPlanetWithActingGravity = planetWithActingGravity;
-        planetWithActingGravity = null;
-        transform.parent = null;
 
-        yield return new WaitForSeconds(1f);
-        lastPlanetWithActingGravity = null;
-    }
+        float GetBoostSpeed(float t, float maxSpeed) {
+            float timeToAccelerate = boostTime * 0.2f;
+            float timeToDecelerate = boostTime * 0.8f;
 
-    public void BlowUp() {
-        Debug.Log("BOOM!!!");
-        Destroy(this);
-    }
+            if (t < timeToAccelerate) {
+                return (t / timeToAccelerate) * maxSpeed;
+            }
+            if (t > boostTime - timeToDecelerate) {
+                float t2 = t - (boostTime - timeToDecelerate);
+                return maxSpeed - (t2 / timeToDecelerate) * maxSpeed;
+            }
+            return maxSpeed;
+        }
 
-    public void Land(Vector2 landingPos) {
-        rocketSpeed = 0;
-        boostSpeed = 0;
-    }
+        IEnumerator LeavePlanetGravity() {
+            lastPlanetWithActingGravity = planetWithActingGravity;
+            planetWithActingGravity = null;
+            transform.parent = null;
 
-    void Update() {
-        if (rocketLaunched) {
-            Debug.Log($"{rocketSpeed} {distancePassed}");
-            float finalSpeed = rocketSpeed + boostSpeed;
+            yield return new WaitForSeconds(1f);
+            lastPlanetWithActingGravity = null;
+        }
 
-            if (!planetWithActingGravity) {
-                planetWithActingGravity = FindPlanetWithActingGravity();
+        public void BlowUp() {
+            Debug.Log("BOOM!!!");
+            // Destroy(this);
+        }
 
-                if (planetWithActingGravity) {
+        public void Land(Vector2 landingPos) {
+            rocketSpeed = 0;
+            boostSpeed = 0;
+        }
+
+        void Update() {
+            if (rocketLaunched) {
+                float finalSpeed = rocketSpeed + boostSpeed;
+
+                if (!planetWithActingGravity) {
+                    planetWithActingGravity = FindPlanetWithActingGravity();
+
+                    // if (planetWithActingGravity) {
                     // var planetPos = planetWithActingGravity.transform.position;
                     // Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
                     // steeringRotation = MathFG.WedgeProduct(dirToRocketFromPlanet, rocket.up) < 0 ? -1 : 1;
+                    // }
+                }
+
+                if (planetWithActingGravity) {
+                    transform.parent = planetWithActingGravity.transform;
+
+                    var planetPos = planetWithActingGravity.transform.position;
+                    Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
+                    float angleSpeedRad = (finalSpeed / planetWithActingGravity.GravityRadius) * steeringRotation * planetWithActingGravity.GravityAngularSpeed;
+                    Vector2 rotatedDir = Quaternion.Euler(0, 0, angleSpeedRad * Time.deltaTime * Mathf.Rad2Deg) * dirToRocketFromPlanet;
+
+                    Vector3 nextPosition = (Vector3)(rotatedDir * planetWithActingGravity.GravityRadius) + planetPos;
+                    CalculateDistancePassed();
+
+                    rocket.right = rotatedDir * steeringRotation;
+                    rocket.position = nextPosition;
+                }
+                else {
+                    Vector3 nextPosition = rocket.position + rocket.up * (Time.deltaTime * finalSpeed);
+                    CalculateDistancePassed();
+                    rocket.position = nextPosition;
                 }
             }
 
-            if (planetWithActingGravity) {
-                transform.parent = planetWithActingGravity.transform;
+        }
 
-                var planetPos = planetWithActingGravity.transform.position;
-                Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
-                float angleSpeedRad = (finalSpeed / planetWithActingGravity.GravityRadius) * steeringRotation * planetWithActingGravity.GravityAngularSpeed;
-                Vector2 rotatedDir = Quaternion.Euler(0, 0, angleSpeedRad * Time.deltaTime * Mathf.Rad2Deg) * dirToRocketFromPlanet;
-
-                Vector3 nextPosition = (Vector3)(rotatedDir * planetWithActingGravity.GravityRadius) + planetPos;
-                CalculateDistancePassed();
-
-                rocket.right = rotatedDir * steeringRotation;
-                rocket.position = nextPosition;
+        void CalculateDistancePassed() {
+            float xPassed = rocket.position.x - startPosition.x;
+            if (xPassed > distancePassed) {
+                distancePassed = xPassed;
             }
-            else {
-                Vector3 nextPosition = rocket.position + rocket.up * (Time.deltaTime * finalSpeed);
-                CalculateDistancePassed();
-                rocket.position = nextPosition;
-            }
+        }
 
-            // CalculateSpeed();
+
+        [CanBeNull]
+        Planet FindPlanetWithActingGravity() {
+            foreach (var planet in FindObjectsOfType<Planet>()) {
+                if (!ReferenceEquals(lastPlanetWithActingGravity, planet) && planet.InsideGravity(rocket.position)) {
+                    return planet;
+                }
+            }
+            return null;
         }
 
     }
-
-    void CalculateSpeed() {
-        rocketSpeed = baseRocketSpeed + distancePassed * 0.01f;
-    }
-
-    void CalculateDistancePassed() {
-        float xPassed = rocket.position.x - startPosition.x;
-        if (xPassed > distancePassed) {
-            distancePassed = xPassed;
-        }
-    }
-
-
-    [CanBeNull]
-    Planet FindPlanetWithActingGravity() {
-        foreach (var planet in GameObject.FindObjectsOfType<Planet>()) {
-            if (!ReferenceEquals(lastPlanetWithActingGravity, planet) && planet.InsideGravity(rocket.position)) {
-                return planet;
-            }
-        }
-        // foreach (var planet in PlanetController.Instance.Planets) {
-        //     
-        // }
-        return null;
-    }
-
 }

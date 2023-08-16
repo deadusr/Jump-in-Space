@@ -5,27 +5,26 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using JumpInSpace.Gameplay;
 
-namespace JumpInSpace.UI {
-    public class LevelFinishedUI : MonoBehaviour {
+namespace JumpInSpace.Gameplay.UI {
+    public class WinUI : MonoBehaviour {
 
-        Button nextLevelButton;
-        TextElement levelInfo;
+        Button quitButton;
+        TextElement gameSessionInfo;
         VisualElement root;
 
         void Start() {
             UIDocument UIDocument = GetComponent<UIDocument>();
 
             var rootEl = UIDocument.rootVisualElement;
-
-            nextLevelButton = rootEl.Q<Button>("NextLevelButton");
-            levelInfo = rootEl.Q<TextElement>("LevelInfo");
             root = rootEl.Q<VisualElement>("Root");
+            quitButton = rootEl.Q<Button>("QuitButton");
+            gameSessionInfo = rootEl.Q<TextElement>("GameSessionInfo");
 
-            nextLevelButton.clicked += OnClickNextLevelButton;
+            quitButton.clicked += OnClickQuitButton;
         }
 
-        void OnClickNextLevelButton() {
-            GameplayController.Instance.NextLevel();
+        void OnClickQuitButton() {
+            GameplayController.Instance.QuitGame();
         }
 
         public void ShowPanel() {
@@ -38,3 +37,4 @@ namespace JumpInSpace.UI {
         }
     }
 }
+

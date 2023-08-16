@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using JumpInSpace.Gameplay;
 
-namespace JumpInSpace.UI {
+namespace JumpInSpace.Gameplay.UI {
     public class MainMenuUI : MonoBehaviour {
 
         Button playButton;
