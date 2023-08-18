@@ -9,7 +9,7 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         void OnTriggerEnter2D(Collider2D other) {
             if (other.transform.TryGetComponent(out Rocket rocket)) {
                 Debug.Log("OnTriggerEnter2D");
-                GameplayController.Instance.SaveGame();
+                GameplayManager.Instance.SaveGame();
             }
         }
     }

@@ -1,36 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using JumpInSpace.Utils;
 using UnityEngine;
 
 namespace JumpInSpace.SaveSystem {
 
     [DefaultExecutionOrder(-1)]
     [ExecuteInEditMode]
-    public class IdsManager : MonoBehaviour {
+    public class IdsManager : Singleton<IdsManager> {
         Dictionary<string, int> idToInstanceId = new Dictionary<string, int>();
         Dictionary<string, GameObject> idToGameObject = new Dictionary<string, GameObject>();
 
-        public static IdsManager Instance { get; private set; }
-
         public Dictionary<string, int> IdToInstanceId => idToInstanceId;
         public Dictionary<string, GameObject> IdToGameObject => idToGameObject;
-
-        void Awake() {
-            if (Instance != null && Instance != this) {
-                Destroy(this);
-            }
-            else {
-                Instance = this;
-            }
-
-
-        }
-
-        void Update() {
-            if (Instance == null) {
-                Instance = FindObjectOfType<IdsManager>();
-            }
-        }
 
         public void Add(GenID genID) {
             if (

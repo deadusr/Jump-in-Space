@@ -7,6 +7,8 @@ using UnityEngine;
 
 namespace JumpInSpace.Gameplay.GameplayObjects {
     public class Rocket : MonoBehaviour {
+        public Action rocketCrushed;
+
         [SerializeField]
         Transform rocket;
 
@@ -60,6 +62,26 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
             }
         }
 
+        public void BlowUp() {
+
+            Debug.Log("BOOM!!!");
+            // Destroy(this);
+        }
+
+        public void Stop() {
+            rocketSpeed = 0;
+            boostSpeed = 0;
+        }
+
+        public void Land(Vector2 landingPos) {
+            rocketSpeed = 0;
+            boostSpeed = 0;
+        }
+
+        public void Crush() {
+            rocketCrushed?.Invoke();
+        }
+
         void Boost() {
             StartCoroutine(LeavePlanetGravity());
             StartCoroutine(BoostRocket());
@@ -100,16 +122,6 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
             yield return new WaitForSeconds(1f);
             lastPlanetWithActingGravity = null;
-        }
-
-        public void BlowUp() {
-            Debug.Log("BOOM!!!");
-            // Destroy(this);
-        }
-
-        public void Land(Vector2 landingPos) {
-            rocketSpeed = 0;
-            boostSpeed = 0;
         }
 
         void Update() {

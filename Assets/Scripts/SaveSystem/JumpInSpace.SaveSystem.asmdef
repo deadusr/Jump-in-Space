@@ -2,7 +2,8 @@
   "name": "JumpInSpace.SaveSystem",
   "rootNamespace": "",
   "references": [
-    "JumpInSpace.Editor"
+    "JumpInSpace.Editor",
+    "JumpInSpace.Utils"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

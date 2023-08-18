@@ -132,7 +132,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rocket: {fileID: 8925088548915395326}
-  rocketSpeed: 7
+  baseRocketSpeed: 15
+  boostMultiplier: 1.5
+  boostTime: 1
 --- !u!70 &8925088548915395321
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

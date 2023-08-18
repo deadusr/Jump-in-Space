@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Button display-tooltip-when-elided="true" name="LevelCard" style="align-items: center; width: 130px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px; padding-top: 10px; padding-bottom: 10px; background-color: rgba(255, 255, 255, 0.08); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">
+        <ui:VisualElement name="Image" style="background-color: rgb(147, 104, 183); width: 100px; height: 100px;" />
+        <ui:Label text="Level name" display-tooltip-when-elided="true" name="LevelName" style="font-size: 16px; color: rgb(255, 255, 255); margin-top: 10px; -unity-font-style: normal;" />
+        <ui:Label text="Some description about level" display-tooltip-when-elided="true" name="Description" style="font-size: 10px; color: rgb(255, 255, 255); margin-top: 10px; -unity-font-style: normal; white-space: normal;" />
+    </ui:Button>
+</ui:UXML>
