@@ -8,23 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScreen.unity
     guid: 5209404576a23d24bb426a112657e7ef
-  - enabled: 0
-    path: Assets/Scenes/GameplayLevel1.unity
-    guid: 52ce525e91f3f0b488be6f345c4d386c
-  - enabled: 0
-    path: Assets/Scenes/GameplayLevel2.unity
-    guid: 83cd35c6b5c82d0419d4f992efd3004f
-  - enabled: 0
-    path: Assets/Scenes/GameplayLevel3.unity
-    guid: e2cf4cff14f9d2b498a5feb6e0f0bb81
-  - enabled: 0
-    path: Assets/Scenes/GameplayLevel4.unity
-    guid: c4fe53526bd303545ae1080860d3342e
-  - enabled: 0
-    path: Assets/Scenes/GameplayLevel7.unity
-    guid: 3d735fefd4ca7ef45b4cabf7507c5dde
   - enabled: 1
-    path: Assets/Scenes/GameplayLevel8.unity
+    path: Assets/Scenes/Level1.unity
     guid: af8cd36190e413d43b896f861fbedcbc
   - enabled: 1
     path: Assets/Scenes/BlackHole.unity
@@ -32,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels.unity
     guid: b5043396383982540836815bd11c22f8
+  - enabled: 1
+    path: Assets/Scenes/Booster.unity
+    guid: c24cdd3596355aa428cc69c1aeda7f34
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 1380d8cebefbb864fbe010ee0a4ce844
   m_configObjects: {}

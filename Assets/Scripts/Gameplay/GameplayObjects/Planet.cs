@@ -19,6 +19,10 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         [SerializeField]
         [Range(1, 3)]
         float gravityAngularSpeed = 1f;
+        
+        [SerializeField]
+        [Tooltip("Planet that accelerates rocket while rocket inside it's orbit")]
+        bool redPlanet;
 
         Vector2 planetToRocket;
         [CanBeNull]
@@ -27,6 +31,8 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         public float PlanetRadius => planetRadius;
         public float GravityRadius => gravityRadius;
         public float GravityAngularSpeed => gravityAngularSpeed;
+
+        public bool RedPlanet => redPlanet;
 
         void OnDrawGizmos() {
 #if UNITY_EDITOR

@@ -32,8 +32,11 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
         float distancePassed;
         float rocketSpeed;
+        bool boosted;
 
         Vector2 startPosition;
+
+        float timePassedOnPlanet;
 
 
         void Start() {
@@ -49,7 +52,10 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
         void OnInteract() {
             if (rocketLaunched) {
-                Boost();
+                if (planetWithActingGravity)
+                    Boost();
+                else
+                    ApplyBoost(3f);
             }
             else {
                 LaunchRocket();
@@ -59,6 +65,7 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         public void LaunchRocket() {
             if (!rocketLaunched) {
                 rocketLaunched = true;
+                Boost();
             }
         }
 
@@ -82,34 +89,39 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
             rocketCrushed?.Invoke();
         }
 
+        public void ApplyBoost(float duration) {
+            StartCoroutine(BoostRocket(duration, true));
+        }
+
         void Boost() {
             StartCoroutine(LeavePlanetGravity());
-            StartCoroutine(BoostRocket());
+            StartCoroutine(BoostRocket(boostTime));
         }
 
 
-        IEnumerator BoostRocket() {
+        IEnumerator BoostRocket(float duration, bool isBoosted = false) {
             float targetSpeed = rocketSpeed * boostMultiplier;
             float t = 0;
-
-            while (t < boostTime) {
-                boostSpeed = GetBoostSpeed(t, targetSpeed);
+            boosted = isBoosted;
+            while (t < duration) {
+                boostSpeed = GetBoostSpeed(t, targetSpeed, duration);
                 t += Time.deltaTime;
                 yield return null;
             }
             boostSpeed = 0;
+            boosted = false;
         }
 
 
-        float GetBoostSpeed(float t, float maxSpeed) {
-            float timeToAccelerate = boostTime * 0.2f;
-            float timeToDecelerate = boostTime * 0.8f;
+        float GetBoostSpeed(float t, float maxSpeed, float duration) {
+            float timeToAccelerate = duration * 0.2f;
+            float timeToDecelerate = duration * 0.8f;
 
             if (t < timeToAccelerate) {
                 return (t / timeToAccelerate) * maxSpeed;
             }
-            if (t > boostTime - timeToDecelerate) {
-                float t2 = t - (boostTime - timeToDecelerate);
+            if (t > duration - timeToDecelerate) {
+                float t2 = t - (duration - timeToDecelerate);
                 return maxSpeed - (t2 / timeToDecelerate) * maxSpeed;
             }
             return maxSpeed;
@@ -128,13 +140,15 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
             if (rocketLaunched) {
                 float finalSpeed = rocketSpeed + boostSpeed;
 
-                if (!planetWithActingGravity) {
+                if (!planetWithActingGravity && !boosted) {
                     planetWithActingGravity = FindPlanetWithActingGravity();
 
+                    if (planetWithActingGravity)
+                        timePassedOnPlanet = 0f;
                     // if (planetWithActingGravity) {
-                    // var planetPos = planetWithActingGravity.transform.position;
-                    // Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
-                    // steeringRotation = MathFG.WedgeProduct(dirToRocketFromPlanet, rocket.up) < 0 ? -1 : 1;
+                    //     var planetPos = planetWithActingGravity.transform.position;
+                    //     Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
+                    //     steeringRotation = MathFG.WedgeProduct(dirToRocketFromPlanet, rocket.up) < 0 ? -1 : 1;
                     // }
                 }
 
@@ -143,7 +157,10 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
                     var planetPos = planetWithActingGravity.transform.position;
                     Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
-                    float angleSpeedRad = (finalSpeed / planetWithActingGravity.GravityRadius) * steeringRotation * planetWithActingGravity.GravityAngularSpeed;
+                    float angleSpeedRad =
+                        (finalSpeed / planetWithActingGravity.GravityRadius) *
+                        steeringRotation * planetWithActingGravity.GravityAngularSpeed *
+                        (planetWithActingGravity.RedPlanet ? (1f + timePassedOnPlanet * 0.25f) : 1);
                     Vector2 rotatedDir = Quaternion.Euler(0, 0, angleSpeedRad * Time.deltaTime * Mathf.Rad2Deg) * dirToRocketFromPlanet;
 
                     Vector3 nextPosition = (Vector3)(rotatedDir * planetWithActingGravity.GravityRadius) + planetPos;
@@ -151,6 +168,8 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
                     rocket.right = rotatedDir * steeringRotation;
                     rocket.position = nextPosition;
+
+                    timePassedOnPlanet += Time.deltaTime;
                 }
                 else {
                     Vector3 nextPosition = rocket.position + rocket.up * (Time.deltaTime * finalSpeed);
