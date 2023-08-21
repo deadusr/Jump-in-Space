@@ -13,6 +13,7 @@ namespace JumpInSpace.Gameplay.Levels {
 
         readonly LevelController levelController = new LevelController();
         
+        [SerializeField]
         Level activeLevel;
 
         public void LoadLevel(Level level) {

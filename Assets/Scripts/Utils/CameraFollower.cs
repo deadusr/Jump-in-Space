@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace JumpInSpace.Utils {
+
     public class CameraFollower : MonoBehaviour {
         [SerializeField]
         Transform followTf;
@@ -11,6 +12,12 @@ namespace JumpInSpace.Utils {
 
         [SerializeField]
         float movementSpeed = 1f;
+
+        [SerializeField]
+        float screenLeftBoundaryPercent;
+
+        [SerializeField]
+        float screenRightBoundaryPercent;
 
         Camera camera;
 
@@ -39,7 +46,7 @@ namespace JumpInSpace.Utils {
                 float minXPos = playArea.bounds.min.x + camHalfWidth;
                 float maxXPos = playArea.bounds.max.x - camHalfWidth;
 
-                float camShiftFromCenter = camHalfWidth * 0.5f; // shift on 25% to the right
+                float camShiftFromCenter = camHalfWidth * 0.1f; // shift on 25% to the right
                 float xDirection = followTf.position.x - transform.position.x > 0 ? 1 : -1;
 
                 float x = Mathf.Clamp(followTf.position.x + (camShiftFromCenter * xDirection), minXPos, maxXPos);
@@ -56,9 +63,7 @@ namespace JumpInSpace.Utils {
             Vector2 position = followTf.position;
 
             Vector2 positionInViewport = camera.WorldToViewportPoint(position);
-
-            return positionInViewport.x is < 0.05f or > 0.8f;
+            return positionInViewport.x < (screenLeftBoundaryPercent * 0.01f) || positionInViewport.x > (screenRightBoundaryPercent * 0.01f);
         }
     }
 }
-

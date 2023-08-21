@@ -3,6 +3,7 @@
         <ui:VisualElement name="LevelInfo" style="position: relative;">
             <ui:Label text="Level 1 / 12" display-tooltip-when-elided="true" name="Level" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; font-size: 16px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
         </ui:VisualElement>
+        <ui:ProgressBar value="22" title="Fuel" name="FuelLevel" usage-hints="None" style="width: 20%; max-width: 300px;" />
         <ui:Button text="Pause" display-tooltip-when-elided="true" name="PauseButton" style="background-color: rgb(95, 43, 224); color: rgb(255, 255, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 10px; padding-right: 10px; padding-top: 5px; padding-bottom: 5px; -unity-font-style: bold;" />
     </ui:VisualElement>
 </ui:UXML>

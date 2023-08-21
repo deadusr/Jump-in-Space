@@ -34,9 +34,14 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         float rocketSpeed;
         bool boosted;
 
+        float fuelLevel = 100f;
+
         Vector2 startPosition;
 
         float timePassedOnPlanet;
+
+        public float FuelLevel => fuelLevel;
+        public bool Boosted => boosted;
 
 
         void Start() {
@@ -138,13 +143,21 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
         void Update() {
             if (rocketLaunched) {
+                fuelLevel = Mathf.Max(0, fuelLevel - Time.deltaTime * 20f);
+
+                if (fuelLevel == 0) {
+                    Crush();
+                }
+
                 float finalSpeed = rocketSpeed + boostSpeed;
 
-                if (!planetWithActingGravity && !boosted) {
+                if (!planetWithActingGravity) {
                     planetWithActingGravity = FindPlanetWithActingGravity();
 
-                    if (planetWithActingGravity)
+                    if (planetWithActingGravity) {
                         timePassedOnPlanet = 0f;
+                        fuelLevel = 100f;
+                    }
                     // if (planetWithActingGravity) {
                     //     var planetPos = planetWithActingGravity.transform.position;
                     //     Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
@@ -159,14 +172,14 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
                     Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
                     float angleSpeedRad =
                         (finalSpeed / planetWithActingGravity.GravityRadius) *
-                        steeringRotation * planetWithActingGravity.GravityAngularSpeed *
+                        planetWithActingGravity.RotationDirection * planetWithActingGravity.GravityAngularSpeed *
                         (planetWithActingGravity.RedPlanet ? (1f + timePassedOnPlanet * 0.25f) : 1);
                     Vector2 rotatedDir = Quaternion.Euler(0, 0, angleSpeedRad * Time.deltaTime * Mathf.Rad2Deg) * dirToRocketFromPlanet;
 
                     Vector3 nextPosition = (Vector3)(rotatedDir * planetWithActingGravity.GravityRadius) + planetPos;
                     CalculateDistancePassed();
 
-                    rocket.right = rotatedDir * steeringRotation;
+                    rocket.right = rotatedDir * planetWithActingGravity.RotationDirection;
                     rocket.position = nextPosition;
 
                     timePassedOnPlanet += Time.deltaTime;

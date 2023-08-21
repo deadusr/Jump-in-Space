@@ -7,7 +7,8 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
         void OnTriggerEnter2D(Collider2D other) {
             if (other.gameObject.TryGetComponent(out Rocket rocket)) {
-                rocket.Crush();
+                if (!rocket.Boosted)
+                    rocket.Crush();
             }
         }
     }
