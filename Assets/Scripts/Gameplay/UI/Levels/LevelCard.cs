@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 namespace JumpInSpace.Gameplay.UI.Levels {
     public class LevelCard {
 
-        static readonly VisualTreeAsset levelCardAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/LevelCard.uxml");
+        static readonly VisualTreeAsset levelCardAsset = Resources.Load<VisualTreeAsset>("UI/LevelCard");
 
         public Action clicked;
 

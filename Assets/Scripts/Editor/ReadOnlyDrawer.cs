@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace JumpInSpace.Editor {
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     public class ReadOnlyDrawer : PropertyDrawer {
         public override void OnGUI(Rect position, SerializedProperty prop, GUIContent label) {
@@ -28,5 +29,5 @@ namespace JumpInSpace.Editor {
             EditorGUI.LabelField(position, label.text, valueStr);
         }
     }
-
+#endif
 }

@@ -88,6 +88,7 @@ namespace JumpInSpace.Utils {
         }
 
         void OnDrawGizmos() {
+#if UNITY_EDITOR
             Handles.color = Color.red;
 
             if (nodesWithOffset.Count != 0) {
@@ -99,6 +100,7 @@ namespace JumpInSpace.Utils {
                 }
 
             }
+#endif
         }
 
 
