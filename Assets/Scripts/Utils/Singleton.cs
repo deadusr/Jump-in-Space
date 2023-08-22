@@ -30,7 +30,8 @@ namespace JumpInSpace.Utils {
                     DontDestroyOnLoad(gameObject);
             }
             else {
-                Destroy(gameObject);
+                if(Application.isPlaying)
+                    Destroy(gameObject);
             }
         }
 

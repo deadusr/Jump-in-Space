@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using JumpInSpace.Utils;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -30,6 +29,7 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         bool isReloading = false;
 
         void OnDrawGizmos() {
+#if UNITY_EDITOR
             float angleRad = angle * Mathf.Deg2Rad;
             Gizmos.color = Handles.color = IsRocketInsideFOW() ? Color.red : Color.green;
 
@@ -37,6 +37,7 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
             Handles.DrawWireArc(Vector3.zero, Vector3.forward, Vector2.up, -angle / 2, radius);
             Handles.DrawWireArc(Vector3.zero, Vector3.forward, Vector2.up, angle / 2, radius);
             Gizmos.matrix = Handles.matrix = Matrix4x4.identity;
+#endif
 
         }
 
