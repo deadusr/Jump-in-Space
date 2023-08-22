@@ -7,7 +7,9 @@ using JumpInSpace.Gameplay;
 
 namespace JumpInSpace.Gameplay.UI.UIPanel {
     public class LevelFinishedPanel : MonoBehaviour, IUIPanel {
-        Button nextLevelButton;
+        public Action showLevels;
+        
+        Button loadLevelsButton;
         TextElement levelInfo;
         VisualElement root;
 
@@ -16,16 +18,17 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
 
             var rootEl = UIDocument.rootVisualElement;
 
-            nextLevelButton = rootEl.Q<Button>("NextLevelButton");
+            loadLevelsButton = rootEl.Q<Button>("LoadLevelsButton");
             levelInfo = rootEl.Q<TextElement>("LevelInfo");
             root = rootEl.Q<VisualElement>("Root");
 
-            nextLevelButton.clicked += OnClickNextLevelButton;
+            loadLevelsButton.clicked += OnShowLevels;
             
             Hide();
         }
 
-        void OnClickNextLevelButton() {
+        void OnShowLevels() {
+            showLevels?.Invoke();
         }
 
         public void Show() {

@@ -45,11 +45,15 @@ namespace JumpInSpace.Utils {
 
                 float minXPos = playArea.bounds.min.x + camHalfWidth;
                 float maxXPos = playArea.bounds.max.x - camHalfWidth;
+                float minYPos = playArea.bounds.min.y + camHalfHeight;
+                float maxYPos = playArea.bounds.max.y - camHalfHeight;
 
-                float camShiftFromCenter = camHalfWidth * 0.1f; // shift on 25% to the right
+                float camShiftFromCenter = camHalfWidth * 0.10f; // shift on 5% to the right
                 float xDirection = followTf.position.x - transform.position.x > 0 ? 1 : -1;
+                // float yDirection = followTf.position.y - transform.position.y > 0 ? 1 : -1;
 
                 float x = Mathf.Clamp(followTf.position.x + (camShiftFromCenter * xDirection), minXPos, maxXPos);
+                // float y = Mathf.Clamp(followTf.position.y + (camShiftFromCenter * yDirection), minYPos, maxYPos);
                 targetPosition = new Vector3(x, transform.position.y, transform.position.z);
                 startPosition = transform.position;
                 isCameraMoving = true;
@@ -63,7 +67,9 @@ namespace JumpInSpace.Utils {
             Vector2 position = followTf.position;
 
             Vector2 positionInViewport = camera.WorldToViewportPoint(position);
-            return positionInViewport.x < (screenLeftBoundaryPercent * 0.01f) || positionInViewport.x > (screenRightBoundaryPercent * 0.01f);
+            bool horizontal = positionInViewport.x < (screenLeftBoundaryPercent * 0.01f) || positionInViewport.x > (screenRightBoundaryPercent * 0.01f);
+            // bool vertical = positionInViewport.y < (screenLeftBoundaryPercent * 0.01f) || positionInViewport.y > (screenRightBoundaryPercent * 0.01f);
+            return horizontal;
         }
     }
 }

@@ -23,6 +23,8 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
 
             losePanel.clickReplay += OnReplay;
             pausePanel.clickedContinue += OnContinue;
+            pausePanel.quit += OnShowLevels;
+            levelFinishedPanel.showLevels += OnShowLevels;
         }
 
         void OnDisable() {
@@ -33,6 +35,8 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
             
             losePanel.clickReplay -= OnReplay;
             pausePanel.clickedContinue -= OnContinue;
+            pausePanel.quit -= OnShowLevels;
+            levelFinishedPanel.showLevels -= OnShowLevels;
         }
 
 
@@ -59,6 +63,10 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
 
         void OnContinue() {
             GameplayManager.Instance.ResumeGame();
+        }
+
+        void OnShowLevels() {
+            GameplayManager.Instance.ShowLevels();
         }
 
 

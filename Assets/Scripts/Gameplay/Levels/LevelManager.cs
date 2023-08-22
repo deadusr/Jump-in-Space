@@ -19,6 +19,7 @@ namespace JumpInSpace.Gameplay.Levels {
         public void LoadLevel(Level level) {
             levelController.LoadLevel(level);
             activeLevel = level;
+            GameplayManager.Instance.StartGame();
         }
 
         public void ReplayLevel() {
