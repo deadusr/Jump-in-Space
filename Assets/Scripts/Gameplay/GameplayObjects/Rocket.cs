@@ -42,6 +42,15 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
         public float FuelLevel => fuelLevel;
         public bool Boosted => boosted;
+        
+        List<Planet> planets;
+
+        void Awake() {
+            planets = new List<Planet>();
+            foreach (var planet in FindObjectsOfType<Planet>()) {
+                planets.Add(planet);
+            }
+        }
 
 
         void Start() {
@@ -143,7 +152,7 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
         void Update() {
             if (rocketLaunched) {
-                fuelLevel = Mathf.Max(0, fuelLevel - Time.deltaTime * 20f);
+                fuelLevel = Mathf.Max(0, fuelLevel - Time.deltaTime * 15f);
 
                 if (fuelLevel == 0) {
                     Crush();
@@ -203,7 +212,7 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
         [CanBeNull]
         Planet FindPlanetWithActingGravity() {
-            foreach (var planet in FindObjectsOfType<Planet>()) {
+            foreach (var planet in planets) {
                 if (!ReferenceEquals(lastPlanetWithActingGravity, planet) && planet.InsideGravity(rocket.position)) {
                     return planet;
                 }

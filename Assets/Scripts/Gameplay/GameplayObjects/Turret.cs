@@ -22,11 +22,18 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
         [SerializeField]
         float angle = 180f;
+        
+        SpriteRenderer spriteRenderer;
 
         [SerializeField]
         float timeToReload = 3f;
 
         bool isReloading = false;
+        float t;
+
+        void Awake() {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
 
         void OnDrawGizmos() {
 #if UNITY_EDITOR
@@ -48,10 +55,20 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
             }
         }
 
+        void Update() {
+            t += Time.deltaTime;
+            float colorT = t / timeToReload;
+            spriteRenderer.color = Color.Lerp(Color.green, Color.red, colorT);
+        }
+
         void ShootMissile() {
             var m = Instantiate(missile, transform.position, transform.rotation);
             m.Launch(transform.position, (rocket.transform.position - transform.position).normalized, missileSpeed);
             StartCoroutine(Reload());
+        }
+
+        public void BlowUp() {
+            Destroy(gameObject);
         }
 
 
@@ -59,6 +76,7 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
             isReloading = true;
             yield return new WaitForSeconds(timeToReload);
             isReloading = false;
+            t = 0;
         }
         bool IsRocketInsideFOW() {
             Vector2 rocketPos = rocket.transform.position;

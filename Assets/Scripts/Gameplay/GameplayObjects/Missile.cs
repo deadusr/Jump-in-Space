@@ -30,6 +30,11 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
                 rocket.Crush();
                 Destroy(gameObject);
             }
+            
+            if (other.gameObject.TryGetComponent(out Turret turret)) {
+                turret.BlowUp();
+                Destroy(gameObject);
+            }
         }
     }
 }
