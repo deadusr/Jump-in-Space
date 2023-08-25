@@ -18,8 +18,10 @@ namespace JumpInSpace.Gameplay.UI {
         Button pauseButton;
         ProgressBar fuelLevel;
         VisualElement progressBarBackground;
+        TextElement fpsCounter;
 
         Rocket rocket;
+        float dtime;
 
         public string LevelName {
             set => level.text = value;
@@ -35,6 +37,7 @@ namespace JumpInSpace.Gameplay.UI {
             level = rootEl.Q<TextElement>("Level");
             pauseButton = rootEl.Q<Button>("PauseButton");
             fuelLevel = rootEl.Q<ProgressBar>("FuelLevel");
+            fpsCounter = rootEl.Q<TextElement>("FpsCounter");
             progressBarBackground = rootEl.Q<VisualElement>(className: "unity-progress-bar__progress");
         }
 
@@ -47,6 +50,12 @@ namespace JumpInSpace.Gameplay.UI {
         }
 
         void Update() {
+            dtime += (Time.deltaTime - dtime) * 0.1f;
+            int fps = (int)(1.0f / dtime);
+            fpsCounter.text = $"{fps}fps";
+
+            
+            
             fuelLevel.value = rocket.FuelLevel;
             if (rocket.FuelLevel < 30f) {
                 progressBarBackground.style.backgroundColor = new StyleColor(Color.red);
