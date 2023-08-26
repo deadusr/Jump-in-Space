@@ -1973,7 +1973,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8925088548915395327, guid: 95924a3922bbb7c428c4d167c0fbbd01, type: 3}
       propertyPath: baseRocketSpeed
-      value: 12
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925088548915395327, guid: 95924a3922bbb7c428c4d167c0fbbd01, type: 3}
+      propertyPath: boostMultiplier
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95924a3922bbb7c428c4d167c0fbbd01, type: 3}
