@@ -22,11 +22,15 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         int rotation = -1;
 
 
-        void OnDrawGizmos() {
 #if UNITY_EDITOR
+        void OnDrawGizmos() {
             Handles.color = Color.magenta;
             Handles.DrawWireDisc(transform.position, Vector3.forward, trajectoryRadius);
+        }
 #endif
+
+        void Start() {
+            gameObject.DrawCircle(trajectoryRadius, 0.2f, Color.gray);
         }
 
         public Vector3 GetNextPosition(Vector3 position) {
