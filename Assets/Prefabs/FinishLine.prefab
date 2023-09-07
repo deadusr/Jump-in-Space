@@ -242,8 +242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c19ace6fd0da47f9a30df5d0913cf7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelFinishedUI: {fileID: 7579342137548819, guid: 92ab680136517144887af5200eb421ff, type: 3}
-  winUI: {fileID: 8066310765669329522, guid: b63dcccc10f5b5e44845dc9cbabbed81, type: 3}
 --- !u!50 &7357436654685858015
 Rigidbody2D:
   serializedVersion: 4

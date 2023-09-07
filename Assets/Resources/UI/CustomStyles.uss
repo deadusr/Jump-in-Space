@@ -1,0 +1,18 @@
+#unity-text-input {
+    background-color: #CDC1EA;
+    color: black;
+    border-radius: 10px;
+    position: relative;
+}
+
+.unity-text-field {
+    flex-direction: column;
+}
+
+.unity-text-field__label {
+    color: white;
+}
+
+.unity-text-field:focus .unity-text-field__label {
+    color: white;
+}

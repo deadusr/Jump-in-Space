@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using JumpInSpace.Gameplay;
 using JumpInSpace.Gameplay.GameplayObjects;
+using JumpInSpace.Utils;
 
 namespace JumpInSpace.Gameplay.UI {
 
@@ -19,12 +19,18 @@ namespace JumpInSpace.Gameplay.UI {
         ProgressBar fuelLevel;
         VisualElement progressBarBackground;
         TextElement fpsCounter;
+        Label timeCounter;
 
         Rocket rocket;
+
         float dtime;
 
         public string LevelName {
             set => level.text = value;
+        }
+
+        public float TimePassedOnLevel {
+            set => timeCounter.text = $"{TimeFormat.Format(value)}";
         }
 
         void Awake() {
@@ -38,6 +44,7 @@ namespace JumpInSpace.Gameplay.UI {
             pauseButton = rootEl.Q<Button>("PauseButton");
             fuelLevel = rootEl.Q<ProgressBar>("FuelLevel");
             fpsCounter = rootEl.Q<TextElement>("FpsCounter");
+            timeCounter = rootEl.Q<Label>("TimeCounter");
             progressBarBackground = rootEl.Q<VisualElement>(className: "unity-progress-bar__progress");
         }
 
@@ -54,8 +61,7 @@ namespace JumpInSpace.Gameplay.UI {
             int fps = (int)(1.0f / dtime);
             fpsCounter.text = $"{fps}fps";
 
-            
-            
+
             fuelLevel.value = rocket.FuelLevel;
             if (rocket.FuelLevel < 30f) {
                 progressBarBackground.style.backgroundColor = new StyleColor(Color.red);

@@ -6,8 +6,15 @@ using JumpInSpace.Utils;
 using UnityEngine;
 
 namespace JumpInSpace.Gameplay.GameplayObjects {
+
+    public enum RocketMode {
+        Controlled,
+        Boosted
+    }
+
     public class Rocket : MonoBehaviour {
         public Action rocketCrushed;
+        public Action rocketLaunched;
 
         [SerializeField]
         Transform rocket;
@@ -21,12 +28,15 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         [SerializeField]
         float boostTime = 1f;
 
+        [SerializeField]
+        RocketMode mode;
+
         [CanBeNull]
         Planet planetWithActingGravity;
         [CanBeNull]
         Planet lastPlanetWithActingGravity;
 
-        bool rocketLaunched;
+        bool isRocketLaunched;
         int steeringRotation = -1; // -1 right, 1 left
         float boostSpeed;
 
@@ -42,7 +52,7 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
         public float FuelLevel => fuelLevel;
         public bool Boosted => boosted;
-        
+
         List<Planet> planets;
 
         void Awake() {
@@ -65,22 +75,25 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         }
 
         void OnInteract() {
-            if (rocketLaunched) {
+            if (isRocketLaunched) {
                 if (planetWithActingGravity)
                     Boost();
-                else
-                    ApplyBoost(3f);
             }
             else {
                 LaunchRocket();
+                rocketLaunched?.Invoke();
             }
         }
 
         public void LaunchRocket() {
-            if (!rocketLaunched) {
-                rocketLaunched = true;
+            if (!isRocketLaunched) {
+                isRocketLaunched = true;
                 Boost();
             }
+        }
+        
+        public void ApplyBoost(float duration) {
+            StartCoroutine(BoostRocket(duration, true));
         }
 
         public void BlowUp() {
@@ -97,16 +110,12 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         public void Land(Vector2 landingPos) {
             rocketSpeed = 0;
             boostSpeed = 0;
+            isRocketLaunched = false;
         }
 
         public void Crush() {
             rocketCrushed?.Invoke();
         }
-
-        public void ApplyBoost(float duration) {
-            StartCoroutine(BoostRocket(duration, true));
-        }
-
         void Boost() {
             StartCoroutine(LeavePlanetGravity());
             StartCoroutine(BoostRocket(boostTime));
@@ -151,55 +160,72 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         }
 
         void Update() {
-            if (rocketLaunched) {
-                fuelLevel = Mathf.Max(0, fuelLevel - Time.deltaTime * 15f);
+            float finalSpeed = rocketSpeed + boostSpeed;
 
-                if (fuelLevel == 0) {
-                    Crush();
-                }
+            if (mode == RocketMode.Boosted) {
+                rocket.position = GetNextPositionWhenOutsidePlanetGravity(finalSpeed);
+            }
 
-                float finalSpeed = rocketSpeed + boostSpeed;
+            else {
+                if (isRocketLaunched) {
+                    fuelLevel = Mathf.Max(0, fuelLevel - Time.deltaTime * 15f);
 
-                if (!planetWithActingGravity) {
-                    planetWithActingGravity = FindPlanetWithActingGravity();
+                    if (fuelLevel == 0) {
+                        Crush();
+                    }
+
+                    if (!planetWithActingGravity) {
+                        planetWithActingGravity = FindPlanetWithActingGravity();
+
+                        if (planetWithActingGravity) {
+                            timePassedOnPlanet = 0f;
+                            fuelLevel = 100f;
+                        }
+                        // if (planetWithActingGravity) {
+                        //     var planetPos = planetWithActingGravity.transform.position;
+                        //     Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
+                        //     steeringRotation = MathFG.WedgeProduct(dirToRocketFromPlanet, rocket.up) < 0 ? -1 : 1;
+                        // }
+                    }
 
                     if (planetWithActingGravity) {
-                        timePassedOnPlanet = 0f;
-                        fuelLevel = 100f;
+                        transform.parent = planetWithActingGravity.transform;
+                        timePassedOnPlanet += Time.deltaTime;
+                        var nextPosition = GetNextPositionWhenInsidePlanetGravity(finalSpeed);
+                        CalculateDistancePassed();
+                        rocket.position = nextPosition;
                     }
-                    // if (planetWithActingGravity) {
-                    //     var planetPos = planetWithActingGravity.transform.position;
-                    //     Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
-                    //     steeringRotation = MathFG.WedgeProduct(dirToRocketFromPlanet, rocket.up) < 0 ? -1 : 1;
-                    // }
-                }
-
-                if (planetWithActingGravity) {
-                    transform.parent = planetWithActingGravity.transform;
-
-                    var planetPos = planetWithActingGravity.transform.position;
-                    Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
-                    float angleSpeedRad =
-                        (finalSpeed / planetWithActingGravity.GravityRadius) *
-                        planetWithActingGravity.RotationDirection * planetWithActingGravity.GravityAngularSpeed *
-                        (planetWithActingGravity.RedPlanet ? (1f + timePassedOnPlanet * 0.25f) : 1);
-                    Vector2 rotatedDir = Quaternion.Euler(0, 0, angleSpeedRad * Time.deltaTime * Mathf.Rad2Deg) * dirToRocketFromPlanet;
-
-                    Vector3 nextPosition = (Vector3)(rotatedDir * planetWithActingGravity.GravityRadius) + planetPos;
-                    CalculateDistancePassed();
-
-                    rocket.right = rotatedDir * planetWithActingGravity.RotationDirection;
-                    rocket.position = nextPosition;
-
-                    timePassedOnPlanet += Time.deltaTime;
-                }
-                else {
-                    Vector3 nextPosition = rocket.position + rocket.up * (Time.deltaTime * finalSpeed);
-                    CalculateDistancePassed();
-                    rocket.position = nextPosition;
+                    else {
+                        var nextPosition = GetNextPositionWhenOutsidePlanetGravity(finalSpeed);
+                        CalculateDistancePassed();
+                        rocket.position = nextPosition;
+                    }
                 }
             }
 
+        }
+
+        Vector3 GetNextPositionWhenInsidePlanetGravity(float speed) {
+            if (!planetWithActingGravity)
+                return rocket.position;
+
+            var planetPos = planetWithActingGravity.transform.position;
+            Vector2 dirToRocketFromPlanet = (rocket.position - planetPos).normalized;
+            float angleSpeedRad =
+                (speed / planetWithActingGravity.GravityRadius) *
+                planetWithActingGravity.RotationDirection * planetWithActingGravity.GravityAngularSpeed *
+                (planetWithActingGravity.RedPlanet ? (1f + timePassedOnPlanet * 0.25f) : 1);
+            Vector2 rotatedDir = Quaternion.Euler(0, 0, angleSpeedRad * Time.deltaTime * Mathf.Rad2Deg) * dirToRocketFromPlanet;
+
+            Vector3 nextPosition = (Vector3)(rotatedDir * planetWithActingGravity.GravityRadius) + planetPos;
+
+            rocket.right = rotatedDir * planetWithActingGravity.RotationDirection;
+            return nextPosition;
+        }
+
+        Vector3 GetNextPositionWhenOutsidePlanetGravity(float speed) {
+            Vector3 nextPosition = rocket.position + rocket.up * (Time.deltaTime * speed);
+            return nextPosition;
         }
 
         void CalculateDistancePassed() {

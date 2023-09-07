@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace JumpInSpace.Gameplay.Player {
     public class PlayerManager : Singleton<PlayerManager> {
-        public Action winLevel;
+        public Action<float> winLevel;
         public Action<string> loseLevel;
 
 
-        public void WinLevel() {
-            winLevel?.Invoke();
+        public void WinLevel(float levelTime) {
+            winLevel?.Invoke(levelTime);
         }
 
         public void LoseLevel(string reason) {

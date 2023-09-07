@@ -1,5 +1,5 @@
 ﻿namespace JumpInSpace.Gameplay.Levels {
-    public interface ILevel {
+    public interface ILoadable {
         void Load();
         void Quit();
     }

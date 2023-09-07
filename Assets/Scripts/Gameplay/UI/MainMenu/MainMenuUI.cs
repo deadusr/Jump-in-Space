@@ -9,20 +9,37 @@ namespace JumpInSpace.Gameplay.UI.MainMenu {
     [RequireComponent(typeof(UIDocument))]
     public class MainMenuUI : MonoBehaviour {
 
-        public Action clickPlayButton;
+        public Action clickLevelsButton;
+        public Action clickArenaButton;
 
-        Button playButton;
+        Button levelsButton;
+        Button arenaButton;
+        Label username;
+
+        public string UserName {
+            get => username.text;
+            set => username.text = value;
+        }
 
         void Start() {
             UIDocument UIDocument = GetComponent<UIDocument>();
 
             var rootEl = UIDocument.rootVisualElement;
-            playButton = rootEl.Q<Button>("PlayButton");
-            playButton.clicked += OnClickPlayButton;
+            levelsButton = rootEl.Q<Button>("LevelsButton");
+            arenaButton = rootEl.Q<Button>("ArenaButton");
+            username = rootEl.Q<Label>("Username");
+
+
+            levelsButton.clicked += OnClickLevelsButton;
+            arenaButton.clicked += OnClickArenaButton;
         }
 
-        void OnClickPlayButton() {
-            clickPlayButton?.Invoke();
+        void OnClickLevelsButton() {
+            clickLevelsButton?.Invoke();
+        }
+        
+        void OnClickArenaButton() {
+            clickArenaButton?.Invoke();
         }
     }
 

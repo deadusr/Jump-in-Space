@@ -1,17 +1,20 @@
 {
-  "name": "JumpInSpace.Gameplay",
-  "rootNamespace": "",
-  "references": [
-    "JumpInSpace.Utils",
-    "JumpInSpace.SaveSystem"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "JumpInSpace.Gameplay",
+    "rootNamespace": "",
+    "references": [
+        "Unity.Services.Core",
+        "Unity.Services.Authentication",
+        "JumpInSpace.Utils",
+        "JumpInSpace.SaveSystem",
+        "JumpInSpace.UnityServices"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

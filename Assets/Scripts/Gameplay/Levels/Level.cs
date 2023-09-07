@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace JumpInSpace.Gameplay.Levels {
     [CreateAssetMenu(fileName = "Assets/Levels/Level", menuName = "Level", order = 0)]
-    public class Level : ScriptableObject, ILevel {
+    public class Level : ScriptableObject, ILoadable {
 
         [SerializeField]
         string levelName;

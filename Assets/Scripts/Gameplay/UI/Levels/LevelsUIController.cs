@@ -16,7 +16,7 @@ namespace JumpInSpace.Gameplay.UI.Levels {
         }
 
         void Start() {
-            levelsUI.LoadLevels(LevelManager.Instance.Levels);
+            levelsUI.LoadLevels(LevelManager.Instance.ActiveStage.Levels);
         }
 
 

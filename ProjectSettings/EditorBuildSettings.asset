@@ -6,12 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Startup.unity
+    guid: 09d2ac07dc5df804094402f6ad4e657e
+  - enabled: 1
     path: Assets/Scenes/MainScreen.unity
     guid: 5209404576a23d24bb426a112657e7ef
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/EasyLevel.unity
     guid: af8cd36190e413d43b896f861fbedcbc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BlackHole.unity
     guid: 6a6d0e67970fd374fba40dc232b6f6e3
   - enabled: 1
@@ -23,6 +26,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Level2.unity
     guid: 1380d8cebefbb864fbe010ee0a4ce844
+  - enabled: 1
+    path: Assets/Scenes/Arena.unity
+    guid: 380f81bcecbd09e4e8bea05a9fc554c8
   - enabled: 1
     path: Assets/Scenes/MobileLevel1.unity
     guid: 332593e74e836ab4da40f6c0f91c438d
@@ -36,9 +42,15 @@ EditorBuildSettings:
     path: Assets/Scenes/MobileLevel3.unity
     guid: e03d167aa63465443ab329a740c0518d
   - enabled: 1
+    path: Assets/Scenes/MobileLevel4.unity
+    guid: 587027501ff22524297683506f2f2081
+  - enabled: 1
     path: Assets/Scenes/MobileLevel5.unity
     guid: b101bff8d6da9f746938bfd6a0451ee1
   - enabled: 1
-    path: Assets/Scenes/Test.unity
+    path: Assets/Scenes/GraphicTest.unity
     guid: fccad73da3dfe4543b638c536d5bd802
+  - enabled: 1
+    path: Assets/Scenes/Stages.unity
+    guid: ec740b5206ef0e94ea208eb2f383ca9f
   m_configObjects: {}

@@ -1,7 +1,11 @@
 ﻿using System;
-using JumpInSpace.Gameplay.Levels;
-using JumpInSpace.Gameplay.Player;
 using UnityEngine;
+using JumpInSpace.UnityServices;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
+using JumpInSpace.Gameplay.Player;
+using JumpInSpace.Gameplay.Levels;
+using JumpInSpace.Utils;
 
 namespace JumpInSpace.Gameplay.UI.UIPanel {
 
@@ -12,6 +16,9 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
         PausePanel pausePanel;
         [SerializeField]
         LevelFinishedPanel levelFinishedPanel;
+
+        [SerializeField]
+        AuthPanel authPanel;
 
         IUIPanel activePanel;
 
@@ -25,6 +32,10 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
             pausePanel.clickedContinue += OnContinue;
             pausePanel.quit += OnShowLevels;
             levelFinishedPanel.showLevels += OnShowLevels;
+            levelFinishedPanel.showStages += OnShowStages;
+            levelFinishedPanel.loadNextLevel += OnNextLevel;
+            authPanel.createAccount += OnCreateAccount;
+            authPanel.signIn += OnSignIn;
         }
 
         void OnDisable() {
@@ -32,11 +43,45 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
             PlayerManager.Instance.winLevel -= OnWinLevel;
             GameplayManager.Instance.pausedGame -= OnPausedGame;
             GameplayManager.Instance.resumedGame -= OnResumeGame;
-            
+
             losePanel.clickReplay -= OnReplay;
             pausePanel.clickedContinue -= OnContinue;
             pausePanel.quit -= OnShowLevels;
             levelFinishedPanel.showLevels -= OnShowLevels;
+            levelFinishedPanel.showStages -= OnShowStages;
+            levelFinishedPanel.loadNextLevel -= OnNextLevel;
+            authPanel.createAccount -= OnCreateAccount;
+            authPanel.signIn -= OnSignIn;
+        }
+
+        public void ShowAuthPanel() {
+            ShowPanel(authPanel);
+        }
+
+        async void OnCreateAccount(string username, string password) {
+            try {
+                await AccountManager.Instance.SignUpWithUsernamePasswordAsync(username, password);
+                authPanel.Hide();
+            }
+            catch (RequestFailedException ex) {
+                authPanel.ShowErrorMessage(ex.Message);
+                // Compare error code to CommonErrorCodes
+                // Notify the player with the proper error message
+                Debug.LogException(ex);
+            }
+        }
+
+        async void OnSignIn(string username, string password) {
+            try {
+                await AccountManager.Instance.SignInWithUsernamePasswordAsync(username, password);
+                authPanel.Hide();
+            }
+            catch (RequestFailedException ex) {
+                authPanel.ShowErrorMessage(ex.Message);
+                // Compare error code to CommonErrorCodes
+                // Notify the player with the proper error message
+                Debug.LogException(ex);
+            }
         }
 
 
@@ -45,7 +90,12 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
             ShowPanel(losePanel);
         }
 
-        void OnWinLevel() {
+        void OnWinLevel(float time) {
+            bool hasNextLevel = LevelManager.Instance.HasNextLevelInStage;
+            levelFinishedPanel.ShowNextLevelButton = hasNextLevel;
+            levelFinishedPanel.ShowLoadLevelsButton = hasNextLevel;
+            levelFinishedPanel.ShowLoadStagesButton = !hasNextLevel;
+            levelFinishedPanel.LevelFinishedTime = TimeFormat.Format(time);
             ShowPanel(levelFinishedPanel);
         }
 
@@ -58,7 +108,7 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
         }
 
         void OnReplay() {
-            LevelManager.Instance.ReplayLevel();
+            GameplayManager.Instance.Replay();
         }
 
         void OnContinue() {
@@ -67,6 +117,14 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
 
         void OnShowLevels() {
             GameplayManager.Instance.ShowLevels();
+        }
+
+        void OnShowStages() {
+            GameplayManager.Instance.ShowStages();
+        }
+
+        void OnNextLevel() {
+            GameplayManager.Instance.NextLevel();
         }
 
 

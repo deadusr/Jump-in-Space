@@ -1,14 +1,14 @@
 ﻿namespace JumpInSpace.Gameplay.Levels {
     public class LevelController {
-        public void LoadLevel(ILevel level) {
+        public void LoadLevel(ILoadable level) {
             level.Load();
         }
 
-        public void QuitLevel(ILevel level) {
+        public void QuitLevel(ILoadable level) {
             level.Quit();
         }
 
-        public void ReplayLevel(ILevel level) {
+        public void ReplayLevel(ILoadable level) {
             level.Quit();
             level.Load();
         }

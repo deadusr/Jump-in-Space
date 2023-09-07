@@ -1,11 +1,14 @@
 ﻿using System;
 using JumpInSpace.Gameplay.Levels;
+using JumpInSpace.Gameplay.Player;
 using UnityEngine;
 
 namespace JumpInSpace.Gameplay.UI {
     public class GameplayUIController : MonoBehaviour {
         [SerializeField]
         GameplayUI gameplayUI;
+        [SerializeField]
+        PlayerController playerController;
 
         void Start() {
             gameplayUI.LevelName = LevelManager.Instance.ActiveLevel.LevelName;
@@ -17,6 +20,10 @@ namespace JumpInSpace.Gameplay.UI {
 
         void OnDisable() {
             gameplayUI.clickedPause -= OnPause;
+        }
+
+        void Update() {
+            gameplayUI.TimePassedOnLevel = playerController.TimePassed;
         }
 
 

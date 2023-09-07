@@ -1,0 +1,19 @@
+{
+    "name": "JumpInSpace.UnityServices",
+    "rootNamespace": "",
+    "references": [
+        "Unity.Services.Authentication",
+        "Unity.Services.Core",
+        "JumpInSpace.Utils",
+        "Unity.Services.Leaderboards"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using JumpInSpace.Gameplay.GameplayObjects;
+using JumpInSpace.UnityServices;
 using UnityEngine;
 
 namespace JumpInSpace.Gameplay.Player {
@@ -13,8 +15,14 @@ namespace JumpInSpace.Gameplay.Player {
         [SerializeField]
         Collider2D playAreaCollider;
 
+
+        float launchTime;
+
+        public float TimePassed => launchTime != 0 ? Time.time - launchTime : 0;
+
         void OnEnable() {
             rocket.rocketCrushed += OnRocketCrush;
+            rocket.rocketLaunched += OnRocketLaunched;
             finishLine.finished += OnFinish;    
         }
 
@@ -35,14 +43,23 @@ namespace JumpInSpace.Gameplay.Player {
             rocket.BlowUp();
         }
 
+        void OnRocketLaunched() {
+            launchTime = Time.time;
+        }
+
         void OnPlayerOutOfBounds() {
             rocket.Stop();
             PlayerManager.Instance.LoseLevel("You've lost control of your ship");
+            GameplayManager.Instance.StopGame();
         }
 
         void OnFinish() {
-            PlayerManager.Instance.WinLevel();
+            float finalTime = Time.time - launchTime;
+            PlayerManager.Instance.WinLevel(finalTime);
             rocket.Land(finishLine.transform.position);
+            GameplayManager.Instance.StopGame();
+            
+            LeaderboardManager.Instance.SetScore(finalTime);
         }
     }
 }
