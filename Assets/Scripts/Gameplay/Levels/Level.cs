@@ -11,7 +11,11 @@ namespace JumpInSpace.Gameplay.Levels {
         [SerializeField]
         string sceneFilename;
         
+        [SerializeField]
+        string id;
+        
         public string LevelName => levelName;
+        public string Id => id;
 
         public void Load() {
             SceneManager.LoadScene(sceneFilename);

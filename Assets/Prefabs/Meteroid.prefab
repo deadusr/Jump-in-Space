@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2575834105401705512}
   - component: {fileID: 2575834105401705513}
   m_Layer: 0
-  m_Name: meteroid (1)
+  m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,14 +24,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2575834105401705515}
-  m_LocalRotation: {x: -0, y: -0, z: -0.5730353, w: 0.8195308}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4.0317, y: 4.0317, z: 4.0317}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2575834105642139616}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -69.924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2575834105401705513
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2053651035
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: eca46a015f4e3d5429208bf71ee4379c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,8 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2575834105642139616}
   - component: {fileID: 2575834105642139630}
-  - component: {fileID: 2575834105642139617}
   - component: {fileID: 2575834105642139631}
+  - component: {fileID: 8371366354077443135}
   m_Layer: 0
   m_Name: Meteroid
   m_TagString: Untagged
@@ -110,15 +110,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2575834105642139619}
-  m_LocalRotation: {x: -0, y: -0, z: 0.3668196, w: 0.9302921}
-  m_LocalPosition: {x: 0.42, y: 4.52, z: 0.24385403}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2575834105401705512}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 43.039}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2575834105642139630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,32 +131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a5cf66d46544bea76dae3a0307d361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &2575834105642139617
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2575834105642139619}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.38, y: 2.12}
-  m_EdgeRadius: 0
 --- !u!50 &2575834105642139631
 Rigidbody2D:
   serializedVersion: 4
@@ -178,3 +152,35 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &8371366354077443135
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2575834105642139619}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.39278376, y: 1.097802}
+      - {x: -0.58705914, y: 0.7842243}
+      - {x: -1.2233962, y: -0.28803542}
+      - {x: -0.9491591, y: -0.92947495}
+      - {x: 0.49783838, y: -1.1716758}
+      - {x: 1.2529227, y: -0.21720195}
+      - {x: 0.9824803, y: 0.40852585}

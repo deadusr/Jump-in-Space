@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: MobileLevel1
   sceneFilename: MobileLevel1
+  id: arena_level_1

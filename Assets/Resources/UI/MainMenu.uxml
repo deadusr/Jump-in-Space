@@ -2,8 +2,10 @@
     <ui:VisualElement name="Root" style="height: 100%; width: 100%; position: absolute; max-width: 100%; background-color: rgba(29, 41, 84, 0); align-items: center; justify-content: space-between; padding-left: 40px; padding-right: 40px; padding-top: 40px; padding-bottom: 40px; top: 0; left: 0; font-size: 14px; display: flex;">
         <ui:VisualElement style="width: 100%;">
             <ui:VisualElement style="width: 100%; align-items: center; justify-content: flex-start; flex-direction: row;">
-                <ui:Label text="Username" display-tooltip-when-elided="true" name="Username" style="font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
-                <ui:Label text="#100" display-tooltip-when-elided="true" name="Scores" style="font-size: 16px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                <ui:VisualElement name="User" style="flex-direction: row; align-items: center; margin-right: 20px;">
+                    <ui:VisualElement name="UserImage" style="width: 30px; height: 30px; background-color: rgb(198, 119, 157); border-top-left-radius: 100px; border-bottom-left-radius: 100px; border-top-right-radius: 100px; border-bottom-right-radius: 100px;" />
+                    <ui:Label text="deaduser" display-tooltip-when-elided="true" name="Username" style="margin-left: 10px; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:Label text="Jump in Space" display-tooltip-when-elided="true" style="font-size: 50px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; align-items: center; -unity-text-align: upper-center;" />
         </ui:VisualElement>

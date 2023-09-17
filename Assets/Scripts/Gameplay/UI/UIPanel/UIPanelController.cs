@@ -36,6 +36,7 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
             levelFinishedPanel.loadNextLevel += OnNextLevel;
             authPanel.createAccount += OnCreateAccount;
             authPanel.signIn += OnSignIn;
+            authPanel.skipAuth += OnSkipAuth;
         }
 
         void OnDisable() {
@@ -52,6 +53,7 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
             levelFinishedPanel.loadNextLevel -= OnNextLevel;
             authPanel.createAccount -= OnCreateAccount;
             authPanel.signIn -= OnSignIn;
+            authPanel.skipAuth -= OnSkipAuth;
         }
 
         public void ShowAuthPanel() {
@@ -74,6 +76,19 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
         async void OnSignIn(string username, string password) {
             try {
                 await AccountManager.Instance.SignInWithUsernamePasswordAsync(username, password);
+                authPanel.Hide();
+            }
+            catch (RequestFailedException ex) {
+                authPanel.ShowErrorMessage(ex.Message);
+                // Compare error code to CommonErrorCodes
+                // Notify the player with the proper error message
+                Debug.LogException(ex);
+            }
+        }
+
+        async void OnSkipAuth() {
+            try {
+                await AccountManager.Instance.SignInAnonymouslyAsync();
                 authPanel.Hide();
             }
             catch (RequestFailedException ex) {

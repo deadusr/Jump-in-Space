@@ -11,17 +11,28 @@ namespace JumpInSpace.Gameplay.UI.Levels {
     public class LevelsUI : MonoBehaviour {
 
         public Action<Level> selectLevel;
+        public Action goBack;
 
         List<Level> levels;
 
         VisualElement rootEl;
         VisualElement levelsContainer;
+        Button backButton;
 
         void Awake() {
             UIDocument UIDocument = GetComponent<UIDocument>();
 
             rootEl = UIDocument.rootVisualElement;
             levelsContainer = rootEl.Q("LevelsContainer");
+            backButton = rootEl.Q<Button>("BackButton");
+        }
+
+        void OnEnable() {
+            backButton.clicked += OnClickBackButton;
+        }
+
+        void OnDisable() {
+            backButton.clicked -= OnClickBackButton;
         }
 
         public void LoadLevels(List<Level> levels) {
@@ -32,6 +43,9 @@ namespace JumpInSpace.Gameplay.UI.Levels {
 
         void OnSelectLevel(Level level) {
             selectLevel?.Invoke(level);
+        }
+        void OnClickBackButton() {
+            goBack?.Invoke();
         }
 
         void RenderLevels() {

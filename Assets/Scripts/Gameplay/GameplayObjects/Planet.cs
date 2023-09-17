@@ -19,11 +19,11 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
         [SerializeField]
         [Range(1, 3)]
         float gravityAngularSpeed = 1f;
-        
+
         [SerializeField]
         [Tooltip("Planet that accelerates rocket while rocket inside it's orbit")]
         bool redPlanet;
-        
+
         [SerializeField]
         [Range(-1, 1)]
         int rotationDirection = 1;

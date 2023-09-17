@@ -7,10 +7,12 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
     public class AuthPanel : MonoBehaviour, IUIPanel {
         public Action<string, string> signIn;
         public Action<string, string> createAccount;
+        public Action skipAuth;
 
         VisualElement root;
         Button signInButton;
         Button creatAccButton;
+        Button skipButton;
         Label errorMessage;
 
         TextField username;
@@ -23,6 +25,7 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
             root = rootEl.Q("Root");
             signInButton = rootEl.Q<Button>("SignInButton");
             creatAccButton = rootEl.Q<Button>("CreatAccButton");
+            skipButton = rootEl.Q<Button>("SkipButton");
             username = rootEl.Q<TextField>("Username");
             password = rootEl.Q<TextField>("Password");
             errorMessage = rootEl.Q<Label>("ErrorMessage");
@@ -34,11 +37,13 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
             username.RegisterValueChangedCallback(OnChangeField);
             signInButton.clicked += OnSignIn;
             creatAccButton.clicked += OnCreateAcc;
+            skipButton.clicked += OnSkipAuth;
         }
 
         void OnDisable() {
             signInButton.clicked -= OnSignIn;
             creatAccButton.clicked -= OnCreateAcc;
+            skipButton.clicked -= OnSkipAuth;
             username.UnregisterValueChangedCallback(OnChangeField);
         }
 
@@ -75,6 +80,10 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
         void OnCreateAcc() {
             if (username.value != "" && password.value != "")
                 createAccount?.Invoke(username.value, password.value);
+        }
+
+        void OnSkipAuth() {
+            skipAuth?.Invoke();
         }
     }
 }

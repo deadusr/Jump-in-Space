@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using JumpInSpace.Gameplay.GameplayObjects;
+using JumpInSpace.Gameplay.Levels;
 using JumpInSpace.UnityServices;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ namespace JumpInSpace.Gameplay.Player {
         void OnEnable() {
             rocket.rocketCrushed += OnRocketCrush;
             rocket.rocketLaunched += OnRocketLaunched;
-            finishLine.finished += OnFinish;    
+            finishLine.finished += OnFinish;
         }
 
         void OnDisable() {
@@ -58,8 +59,9 @@ namespace JumpInSpace.Gameplay.Player {
             PlayerManager.Instance.WinLevel(finalTime);
             rocket.Land(finishLine.transform.position);
             GameplayManager.Instance.StopGame();
-            
-            LeaderboardManager.Instance.SetScore(finalTime);
+
+            if (GameplayManager.Instance.Mode == GameMode.Arena)
+                LeaderboardManager.Instance.SetScore(LevelManager.Instance.ActiveLevel.Id, finalTime);
         }
     }
 }

@@ -9,10 +9,12 @@ namespace JumpInSpace.Gameplay.UI.Stages {
 
         void OnEnable() {
             stagesUI.selectStage += OnselectStage;
+            stagesUI.goBack += OnGoBack;
         }
 
         void OnDisable() {
             stagesUI.selectStage -= OnselectStage;
+            stagesUI.goBack -= OnGoBack;
         }
 
         void Start() {
@@ -22,6 +24,10 @@ namespace JumpInSpace.Gameplay.UI.Stages {
 
         void OnselectStage(Stage stage) {
             LevelManager.Instance.LoadStage(stage);
+        }
+        
+        void OnGoBack() {
+            GameplayManager.Instance.ShowHomePage();
         }
     }
 }

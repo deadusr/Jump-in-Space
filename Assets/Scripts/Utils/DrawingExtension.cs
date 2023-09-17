@@ -14,7 +14,6 @@ namespace JumpInSpace.Utils {
             var points = new Vector3[pointsCount];
             for (int i = 0; i < points.Length; i++) {
                 float degreeRad = (i / (pointsCount - 1f)) * MathFG.TAU;
-                Debug.Log(degreeRad);
                 var result = MathFG.AngToDir(degreeRad);
                 points[i] = new Vector3(result.x * radius, result.y * radius, 0);
             }

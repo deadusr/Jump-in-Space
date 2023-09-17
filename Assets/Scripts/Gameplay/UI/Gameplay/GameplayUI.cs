@@ -57,9 +57,11 @@ namespace JumpInSpace.Gameplay.UI {
         }
 
         void Update() {
-            dtime += (Time.deltaTime - dtime) * 0.1f;
-            int fps = (int)(1.0f / dtime);
-            fpsCounter.text = $"{fps}fps";
+            if (Time.deltaTime != 0) {
+                dtime += (Time.deltaTime - dtime) * 0.1f;
+                int fps = (int)(1.0f / dtime);
+                fpsCounter.text = $"{fps}fps";
+            }
 
 
             fuelLevel.value = rocket.FuelLevel;

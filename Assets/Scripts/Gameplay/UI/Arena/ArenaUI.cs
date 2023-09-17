@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using JumpInSpace.Gameplay.Levels;
+using JumpInSpace.UnityServices;
+using JumpInSpace.Utils;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,17 +13,35 @@ namespace JumpInSpace.Gameplay.UI.Arena {
     public class ArenaUI : MonoBehaviour {
 
         public Action<Level> selectLevel;
+        public Action goBack;
 
         List<Level> levels;
 
         VisualElement rootEl;
         VisualElement levelsContainer;
+        Button backButton;
+        Label username;
+
+
+        public string Username {
+            set => username.text = value;
+        }
 
         void Awake() {
             UIDocument UIDocument = GetComponent<UIDocument>();
 
             rootEl = UIDocument.rootVisualElement;
             levelsContainer = rootEl.Q("LevelsContainer");
+            backButton = rootEl.Q<Button>("BackButton");
+            username = rootEl.Q<Label>("Username");
+        }
+
+        void OnEnable() {
+            backButton.clicked += OnClickBackButton;
+        }
+
+        void OnDisable() {
+            backButton.clicked -= OnClickBackButton;
         }
 
         public void LoadLevels(List<Level> levels) {
@@ -29,19 +49,28 @@ namespace JumpInSpace.Gameplay.UI.Arena {
             RenderLevels();
         }
 
+        void OnClickBackButton() {
+            goBack?.Invoke();
+        }
+
 
         void OnSelectLevel(Level level) {
             selectLevel?.Invoke(level);
         }
 
-        void RenderLevels() {
+        async void RenderLevels() {
             levelsContainer.Clear();
+
+
             foreach (var level in levels) {
+                var rank = await LeaderboardManager.Instance.GetPlayerRank(level.Id);
+                var time = await LeaderboardManager.Instance.GetPlayerScore(level.Id);
+                var scoresCount = await LeaderboardManager.Instance.GetScoresCount(level.Id);
                 var card = new ArenaLevelCard();
                 card.clicked += () => {
                     OnSelectLevel(level);
                 };
-                levelsContainer.Add(card.Initialize(level.LevelName));
+                levelsContainer.Add(card.Initialize(level.LevelName, $"{rank.ToString()}/{scoresCount}", time.HasValue ? TimeFormat.Format(time.Value) : ""));
             }
         }
     }

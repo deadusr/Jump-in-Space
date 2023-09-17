@@ -35,23 +35,8 @@ namespace JumpInSpace.UnityServices {
             }
         }
 
-        public async Task SignInAnonymouslyAsync() {
-            try {
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                Debug.Log("Sign in anonymously succeeded!");
-
-            }
-            catch (AuthenticationException ex) {
-                // Compare error code to AuthenticationErrorCodes
-                // Notify the player with the proper error message
-                Debug.LogException(ex);
-            }
-            catch (RequestFailedException ex) {
-                // Compare error code to CommonErrorCodes
-                // Notify the player with the proper error message
-                Debug.LogException(ex);
-            }
-        }
+        public async Task SignInAnonymouslyAsync() =>
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
         public async Task SignInCachedUserAsync() {
             // Check if a cached player already exists by checking if the session token exists

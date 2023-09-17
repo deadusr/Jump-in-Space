@@ -7,11 +7,11 @@ namespace JumpInSpace.Gameplay.Levels {
     public class LevelManager : Singleton<LevelManager> {
         [SerializeField]
         List<Stage> stages;
-        
+
         [SerializeField]
         List<Level> arenaLevels;
 
-
+        [SerializeField]
         Level activeLevel;
         int activeLevelIdx;
 
@@ -23,7 +23,7 @@ namespace JumpInSpace.Gameplay.Levels {
         public Stage ActiveStage => activeStage;
         public Level ActiveLevel => activeLevel;
 
-        public bool HasNextLevelInStage => activeStage.Levels.Count > activeLevelIdx + 1;
+        public bool HasNextLevelInStage => activeStage && activeStage.Levels.Count > activeLevelIdx + 1;
 
         readonly LevelController levelController = new LevelController();
 
@@ -58,13 +58,6 @@ namespace JumpInSpace.Gameplay.Levels {
             if (activeLevel == null)
                 return;
             levelController.ReplayLevel(activeLevel);
-        }
-
-        public void QuitLevel() {
-            if (ActiveLevel == null)
-                return;
-            levelController.QuitLevel(ActiveLevel);
-            GameplayManager.Instance.ShowLevels();
         }
     }
 }
