@@ -189,7 +189,7 @@ SpriteRenderer:
   m_Size: {x: 38.4, y: 24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &958042247
@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 1679858787}
   - component: {fileID: 1679858786}
   - component: {fileID: 1679858785}
+  - component: {fileID: 1679858788}
   m_Layer: 0
   m_Name: LevelsUI
   m_TagString: Untagged
@@ -314,6 +315,18 @@ Transform:
   m_Father: {fileID: 976043319}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1679858788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679858784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1ff47a8f5e41008916e04a4e2c1726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2041168369
 PrefabInstance:
   m_ObjectHideFlags: 0

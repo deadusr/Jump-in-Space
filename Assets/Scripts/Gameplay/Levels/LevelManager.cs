@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using JumpInSpace.Utils;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using JumpInSpace.UnityServices;
+using JumpInSpace.Utils;
 
 namespace JumpInSpace.Gameplay.Levels {
     public class LevelManager : Singleton<LevelManager> {
@@ -18,6 +21,8 @@ namespace JumpInSpace.Gameplay.Levels {
         [SerializeField]
         Stage activeStage;
 
+        List<string> completedLevels = new List<string>();
+
         public List<Stage> Stages => stages;
         public List<Level> ArenaLevels => arenaLevels;
         public Stage ActiveStage => activeStage;
@@ -25,24 +30,36 @@ namespace JumpInSpace.Gameplay.Levels {
 
         public bool HasNextLevelInStage => activeStage && activeStage.Levels.Count > activeLevelIdx + 1;
 
+        public bool IsActiveLevelAlreadyCompleted => completedLevels.Contains(activeLevel.Id);
+
         readonly LevelController levelController = new LevelController();
 
-
+        void Start() {
+            RefreshCompletedLevels();
+        }
+        
         public void LoadStage(Stage stage) {
             activeStage = stage;
             levelController.LoadLevel(stage);
         }
 
-        public void LoadLevel(Level level) {
+        public void LoadSelectedLevel() {
+            levelController.LoadLevel(activeLevel);
+            GameplayManager.Instance.ContinueGame();
+        }
+
+        public void LoadGarage() {
+            SceneManager.LoadScene("Garage");
+        }
+
+        public void SelectLevel(Level level) {
             var levels = GameplayManager.Instance.Mode == GameMode.Arena ? arenaLevels : activeStage.Levels;
             int idx = levels.FindIndex(lvl => lvl == level);
             if (idx == -1)
                 throw new Exception("Chosen level wasn't been found inside active stage");
-
-            levelController.LoadLevel(level);
+            
             activeLevel = level;
             activeLevelIdx = idx;
-            GameplayManager.Instance.ContinueGame();
         }
 
         public void LoadNextLevelInStage() {
@@ -59,5 +76,21 @@ namespace JumpInSpace.Gameplay.Levels {
                 return;
             levelController.ReplayLevel(activeLevel);
         }
+
+        public async Task CompleteActiveLevel(float completingTime) {
+            if(completingTime > ActiveLevel.TimeToComplete)
+                return;
+            
+            var levels = completedLevels;
+            levels.Add(activeLevel.Id);
+            await CloudSaveManagerService.SavePlayerCompletedLevels(levels);
+            RefreshCompletedLevels();
+        }
+
+        async void RefreshCompletedLevels() {
+            completedLevels = await CloudSaveManagerService.GetPlayerCompletedLevels();
+        }
+
+        public bool IsLevelCompleted(Level level) => completedLevels.Contains(level.Id);
     }
 }

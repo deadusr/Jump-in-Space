@@ -7,6 +7,7 @@ namespace JumpInSpace.Gameplay.GameplayObjects {
 
         public Action finished;
         void OnTriggerEnter2D(Collider2D other) {
+            Debug.Log(other);
             if (other.TryGetComponent<Rocket>(out var launcher)) {
                 OnFinish();
             }

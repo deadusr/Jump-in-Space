@@ -12,7 +12,7 @@ namespace JumpInSpace.Gameplay.UI.MainMenu {
         UIPanelController uiPanelController;
 
         void Start() {
-            if (!AccountManager.Instance.IsSignIn)
+            if (!AccountManagerService.IsSignIn)
                 uiPanelController.ShowAuthPanel();
         }
 
@@ -37,8 +37,8 @@ namespace JumpInSpace.Gameplay.UI.MainMenu {
         }
 
         void Update() {
-            if (AccountManager.Instance.Username != null && mainMenuUI.UserName != AccountManager.Instance.Username)
-                mainMenuUI.UserName = AccountManager.Instance.Username;
+            if (AccountManagerService.Username != null && mainMenuUI.UserName != AccountManagerService.Username)
+                mainMenuUI.UserName = AccountManagerService.Username;
         }
     }
 }

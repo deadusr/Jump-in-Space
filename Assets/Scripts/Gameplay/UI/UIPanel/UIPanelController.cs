@@ -1,4 +1,5 @@
 ﻿using System;
+using JumpInSpace.Gameplay.Economy;
 using UnityEngine;
 using JumpInSpace.UnityServices;
 using Unity.Services.Core;
@@ -62,7 +63,7 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
 
         async void OnCreateAccount(string username, string password) {
             try {
-                await AccountManager.Instance.SignUpWithUsernamePasswordAsync(username, password);
+                await AccountManagerService.SignUpWithUsernamePasswordAsync(username, password);
                 authPanel.Hide();
             }
             catch (RequestFailedException ex) {
@@ -75,7 +76,7 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
 
         async void OnSignIn(string username, string password) {
             try {
-                await AccountManager.Instance.SignInWithUsernamePasswordAsync(username, password);
+                await AccountManagerService.SignInWithUsernamePasswordAsync(username, password);
                 authPanel.Hide();
             }
             catch (RequestFailedException ex) {
@@ -88,7 +89,7 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
 
         async void OnSkipAuth() {
             try {
-                await AccountManager.Instance.SignInAnonymouslyAsync();
+                await AccountManagerService.SignInAnonymouslyAsync();
                 authPanel.Hide();
             }
             catch (RequestFailedException ex) {
@@ -105,12 +106,13 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
             ShowPanel(losePanel);
         }
 
-        void OnWinLevel(float time) {
+        void OnWinLevel(float completingTime) {
             bool hasNextLevel = LevelManager.Instance.HasNextLevelInStage;
             levelFinishedPanel.ShowNextLevelButton = hasNextLevel;
             levelFinishedPanel.ShowLoadLevelsButton = hasNextLevel;
             levelFinishedPanel.ShowLoadStagesButton = !hasNextLevel;
-            levelFinishedPanel.LevelFinishedTime = TimeFormat.Format(time);
+            levelFinishedPanel.LevelFinishedTime = TimeFormat.Format(completingTime);
+            levelFinishedPanel.WinMoney = LevelManager.Instance.IsActiveLevelAlreadyCompleted || completingTime > LevelManager.Instance.ActiveLevel.TimeToComplete ? "0" : LevelManager.Instance.ActiveLevel.MoneyForCompleting.ToString();
             ShowPanel(levelFinishedPanel);
         }
 

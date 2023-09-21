@@ -2,6 +2,12 @@
     <ui:VisualElement name="Root" style="justify-content: center; align-items: center; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; display: flex; width: 100%; background-color: rgba(135, 140, 255, 0); border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
         <ui:VisualElement style="display: flex; background-color: rgba(135, 140, 255, 0.24); border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; padding-left: 30px; padding-right: 30px; padding-top: 20px; padding-bottom: 20px;">
             <ui:Label text="Level finished!" display-tooltip-when-elided="true" style="font-size: 18px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; -unity-text-align: upper-center;" />
+            <ui:VisualElement style="flex-direction: row; justify-content: center;">
+                <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-items: center;">
+                    <ui:VisualElement style="width: 20px; height: 20px; background-color: rgb(96, 255, 131); border-top-left-radius: 200px; border-bottom-left-radius: 200px; border-top-right-radius: 200px; border-bottom-right-radius: 200px;" />
+                    <ui:Label text="1200" display-tooltip-when-elided="true" name="WinMoney" style="margin-left: 10px; font-size: 24px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
             <ui:VisualElement style="flex-direction: row; align-items: center; justify-content: center; margin-top: 20px; margin-bottom: 20px;">
                 <ui:Label text="Your time is" display-tooltip-when-elided="true" style="font-size: 18px; color: rgb(255, 255, 255); -unity-font-style: normal; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; -unity-text-align: upper-center;" />
                 <ui:Label text="29s" display-tooltip-when-elided="true" name="Time" style="font-size: 20px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; -unity-text-align: upper-center;" />

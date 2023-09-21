@@ -6,33 +6,26 @@ using JumpInSpace.Utils;
 using Newtonsoft.Json;
 
 namespace JumpInSpace.UnityServices {
-    public class LeaderboardManager : Singleton<LeaderboardManager> {
+    public static class LeaderboardManager {
 
-        string VersionId { get; set; }
-        int Offset { get; set; }
-        int Limit { get; set; }
-        int RangeLimit { get; set; }
-
-        public async void SetScore(string leaderboardId, float score) {
+        public static async void SetScore(string leaderboardId, float score) {
             var scoreResponse = await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboardId, score);
             Debug.Log(JsonConvert.SerializeObject(scoreResponse));
         }
 
-        public async Task<int> GetScoresCount(string leaderboardId) {
+        public static async Task<int> GetScoresCount(string leaderboardId) {
             var scoresResponse =
                 await LeaderboardsService.Instance.GetScoresAsync(leaderboardId);
             return scoresResponse.Total;
         }
 
-        public async void GetPaginatedScores(string leaderboardId) {
-            Offset = 10;
-            Limit = 10;
-            var scoresResponse =
-                await LeaderboardsService.Instance.GetScoresAsync(leaderboardId, new GetScoresOptions { Offset = Offset, Limit = Limit });
-            Debug.Log(JsonConvert.SerializeObject(scoresResponse));
-        }
+        // public async void GetPaginatedScores(string leaderboardId) {
+        //     var scoresResponse =
+        //         await LeaderboardsService.Instance.GetScoresAsync(leaderboardId, new GetScoresOptions { Offset = Offset, Limit = Limit });
+        //     Debug.Log(JsonConvert.SerializeObject(scoresResponse));
+        // }
 
-        public async Task<float?> GetPlayerScore(string leaderboardId) {
+        public static async Task<float?> GetPlayerScore(string leaderboardId) {
             try {
                 var scoreResponse =
                     await LeaderboardsService.Instance.GetPlayerScoreAsync(leaderboardId);
@@ -43,7 +36,7 @@ namespace JumpInSpace.UnityServices {
             }
         }
 
-        public async Task<int?> GetPlayerRank(string leaderboardId) {
+        public static async Task<int?> GetPlayerRank(string leaderboardId) {
             try {
                 var scoreResponse =
                     await LeaderboardsService.Instance.GetPlayerScoreAsync(leaderboardId);
@@ -54,10 +47,10 @@ namespace JumpInSpace.UnityServices {
             }
         }
 
-        public async void GetVersionScores(string leaderboardId) {
-            var versionScoresResponse =
-                await LeaderboardsService.Instance.GetVersionScoresAsync(leaderboardId, VersionId);
-            Debug.Log(JsonConvert.SerializeObject(versionScoresResponse));
-        }
+        // public async void GetVersionScores(string leaderboardId) {
+        //     var versionScoresResponse =
+        //         await LeaderboardsService.Instance.GetVersionScoresAsync(leaderboardId, VersionId);
+        //     Debug.Log(JsonConvert.SerializeObject(versionScoresResponse));
+        // }
     }
 }

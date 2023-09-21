@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections;
+using JumpInSpace.Gameplay.Economy;
 using JumpInSpace.Gameplay.GameplayObjects;
 using JumpInSpace.Gameplay.Levels;
 using JumpInSpace.UnityServices;
+using JumpInSpace.Utils;
 using UnityEngine;
 
 namespace JumpInSpace.Gameplay.Player {
     public class PlayerController : MonoBehaviour {
+
         [SerializeField]
-        Rocket rocket;
+        CameraFollower cameraFollower;
+        
+        [SerializeField]
+        Transform startLine;
 
         [SerializeField]
         FinishLine finishLine;
@@ -16,10 +22,11 @@ namespace JumpInSpace.Gameplay.Player {
         [SerializeField]
         Collider2D playAreaCollider;
 
-
+        Rocket rocket;
         float launchTime;
 
         public float TimePassed => launchTime != 0 ? Time.time - launchTime : 0;
+        public Rocket Rocket => rocket;
 
         void OnEnable() {
             rocket.rocketCrushed += OnRocketCrush;
@@ -32,6 +39,12 @@ namespace JumpInSpace.Gameplay.Player {
             finishLine.finished -= OnFinish;
         }
 
+        void Awake() {
+            rocket = Instantiate(EconomyManager.Instance.ActiveRocket.RocketGO, startLine.position, Quaternion.Euler(0, 0, -45));
+            rocket.SetupRocket(EconomyManager.Instance.ActiveRocket);
+            cameraFollower.SetupFollowTransform(rocket.transform);
+        }
+
         void FixedUpdate() {
             if (playAreaCollider && !playAreaCollider.bounds.Contains(rocket.transform.position)) {
                 OnPlayerOutOfBounds();
@@ -40,7 +53,7 @@ namespace JumpInSpace.Gameplay.Player {
 
         void OnRocketCrush() {
             PlayerManager.Instance.LoseLevel("Your rocket blow up");
-            rocket.Stop();
+            rocket.StopRocket();
             rocket.BlowUp();
         }
 
@@ -49,19 +62,23 @@ namespace JumpInSpace.Gameplay.Player {
         }
 
         void OnPlayerOutOfBounds() {
-            rocket.Stop();
+            rocket.StopRocket();
             PlayerManager.Instance.LoseLevel("You've lost control of your ship");
             GameplayManager.Instance.StopGame();
         }
 
         void OnFinish() {
+            Debug.Log("OnFinish");
             float finalTime = Time.time - launchTime;
             PlayerManager.Instance.WinLevel(finalTime);
-            rocket.Land(finishLine.transform.position);
+            rocket.LandRocket(finishLine.transform.position);
             GameplayManager.Instance.StopGame();
 
             if (GameplayManager.Instance.Mode == GameMode.Arena)
-                LeaderboardManager.Instance.SetScore(LevelManager.Instance.ActiveLevel.Id, finalTime);
+                LeaderboardManager.SetScore(LevelManager.Instance.ActiveLevel.Id, finalTime);
+            else {
+                LevelManager.Instance.CompleteActiveLevel(finalTime);
+            }
         }
     }
 }

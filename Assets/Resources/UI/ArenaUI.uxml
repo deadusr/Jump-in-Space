@@ -1,28 +1,32 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Money" src="project://database/Assets/Resources/UI/Components/Money.uxml?fileID=9197481963319205126&amp;guid=629cbd04ce3b2f84885fd4f904c0deda&amp;type=3#Money" />
     <ui:VisualElement name="Root" style="padding-left: 40px; padding-right: 40px; padding-top: 20px; padding-bottom: 20px; background-color: rgba(0, 0, 0, 0); border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0;">
         <ui:Button text="Back" display-tooltip-when-elided="true" name="BackButton" style="background-color: rgb(95, 43, 224); color: rgb(255, 255, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 10px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; -unity-font-style: bold; font-size: 10px; width: 57px; left: -20px;" />
-        <ui:VisualElement style="width: 100%; align-items: center; justify-content: space-between; flex-direction: row; background-color: rgba(135, 140, 255, 0.24); border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; padding-left: 20px; padding-right: 20px; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
-            <ui:Label text="Arena" display-tooltip-when-elided="true" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; font-size: 24px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
-            <ui:VisualElement style="flex-direction: row;">
-                <ui:VisualElement name="User" style="flex-direction: row; align-items: center; margin-right: 20px;">
-                    <ui:VisualElement name="UserImage" style="width: 30px; height: 30px; background-color: rgb(198, 119, 157); border-top-left-radius: 100px; border-bottom-left-radius: 100px; border-top-right-radius: 100px; border-bottom-right-radius: 100px;" />
-                    <ui:Label text="deaduser" display-tooltip-when-elided="true" name="Username" style="margin-left: 10px; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
-                </ui:VisualElement>
-                <ui:VisualElement name="UserData" style="flex-direction: column; align-items: flex-start;">
-                    <ui:VisualElement style="flex-direction: row; display: none;">
-                        <ui:Label text="Position in chart" display-tooltip-when-elided="true" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: normal;" />
-                        <ui:Label text="#1527" display-tooltip-when-elided="true" name="UserTotalPosition" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 18px; color: rgb(146, 112, 230); -unity-font-style: bold;" />
+        <ui:VisualElement style="flex-direction: row; width: 100%; justify-content: space-between; align-items: flex-start;">
+            <ui:VisualElement name="VisualElement" style="width: auto; align-items: center; justify-content: flex-start; flex-direction: row; background-color: rgba(135, 140, 255, 0.24); border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; padding-left: 20px; padding-right: 20px; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
+                <ui:Label text="Arena" display-tooltip-when-elided="true" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; font-size: 24px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:VisualElement name="User" style="flex-direction: row; align-items: center; margin-right: 20px;">
+                        <ui:VisualElement name="UserImage" style="width: 30px; height: 30px; background-color: rgb(198, 119, 157); border-top-left-radius: 100px; border-bottom-left-radius: 100px; border-top-right-radius: 100px; border-bottom-right-radius: 100px;" />
+                        <ui:Label text="deaduser" display-tooltip-when-elided="true" name="Username" style="margin-left: 10px; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
                     </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row;">
-                        <ui:Label text="Total completion" display-tooltip-when-elided="true" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: normal;" />
-                        <ui:Label text="32%" display-tooltip-when-elided="true" name="UserTotalCompletion" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row;">
-                        <ui:Label text="Total time" display-tooltip-when-elided="true" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: normal;" />
-                        <ui:Label text="28m 2s" display-tooltip-when-elided="true" name="UserTotalTime" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
+                    <ui:VisualElement name="UserData" style="flex-direction: column; align-items: flex-start;">
+                        <ui:VisualElement style="flex-direction: row; display: none;">
+                            <ui:Label text="Position in chart" display-tooltip-when-elided="true" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: normal;" />
+                            <ui:Label text="#1527" display-tooltip-when-elided="true" name="UserTotalPosition" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 18px; color: rgb(146, 112, 230); -unity-font-style: bold;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-direction: row;">
+                            <ui:Label text="Total completion" display-tooltip-when-elided="true" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: normal;" />
+                            <ui:Label text="32%" display-tooltip-when-elided="true" name="UserTotalCompletion" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-direction: row;">
+                            <ui:Label text="Total time" display-tooltip-when-elided="true" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: normal;" />
+                            <ui:Label text="28m 2s" display-tooltip-when-elided="true" name="UserTotalTime" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 14px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:Instance template="Money" name="Money" />
         </ui:VisualElement>
         <ui:ScrollView name="LevelsContainer" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" />
     </ui:VisualElement>

@@ -1,8 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Money" src="project://database/Assets/Resources/UI/Components/Money.uxml?fileID=9197481963319205126&amp;guid=629cbd04ce3b2f84885fd4f904c0deda&amp;type=3#Money" />
     <ui:VisualElement name="Root" style="padding-left: 40px; padding-right: 40px; padding-top: 20px; padding-bottom: 20px;">
         <ui:Button text="Back" display-tooltip-when-elided="true" name="BackButton" style="background-color: rgb(95, 43, 224); color: rgb(255, 255, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 10px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; -unity-font-style: bold; font-size: 10px; width: 57px; left: -20px;" />
-        <ui:VisualElement style="margin-bottom: 10px;">
+        <ui:VisualElement name="Header" style="margin-bottom: 10px; flex-direction: row; justify-content: space-between; width: 100%;">
             <ui:Label text="Levels" display-tooltip-when-elided="true" name="Level" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; font-size: 16px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
+            <ui:Instance template="Money" name="Money" />
         </ui:VisualElement>
         <ui:ScrollView name="LevelsContainer" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" />
     </ui:VisualElement>

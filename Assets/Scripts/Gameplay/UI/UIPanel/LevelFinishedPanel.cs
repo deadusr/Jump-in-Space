@@ -15,6 +15,7 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
         Button nextLevelButton;
         Button loadStagesButton; 
         Label timeInfo;
+        Label winMoney;
         VisualElement root;
 
         public bool ShowNextLevelButton {
@@ -32,6 +33,9 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
         public string LevelFinishedTime {
             set => timeInfo.text = value;
         }
+        public string WinMoney {
+            set => winMoney.text = value;
+        }
 
         void Start() {
             UIDocument UIDocument = GetComponent<UIDocument>();
@@ -42,6 +46,7 @@ namespace JumpInSpace.Gameplay.UI.UIPanel {
             nextLevelButton = rootEl.Q<Button>("NextLevelButton");
             loadStagesButton = rootEl.Q<Button>("LoadStagesButton");
             timeInfo = rootEl.Q<Label>("Time");
+            winMoney = rootEl.Q<Label>("WinMoney");
             root = rootEl.Q<VisualElement>("Root");
 
             loadLevelsButton.clicked += OnShowLevels;

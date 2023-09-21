@@ -35,8 +35,6 @@ namespace JumpInSpace.Gameplay.UI {
 
         void Awake() {
             UIDocument UIDocument = GetComponent<UIDocument>();
-            rocket = FindObjectOfType<Rocket>();
-
             var rootEl = UIDocument.rootVisualElement;
 
             root = rootEl.Q<VisualElement>("Root");
@@ -46,6 +44,10 @@ namespace JumpInSpace.Gameplay.UI {
             fpsCounter = rootEl.Q<TextElement>("FpsCounter");
             timeCounter = rootEl.Q<Label>("TimeCounter");
             progressBarBackground = rootEl.Q<VisualElement>(className: "unity-progress-bar__progress");
+        }
+
+        void Start() {
+            rocket = FindObjectOfType<Rocket>();
         }
 
         void OnEnable() {

@@ -13,9 +13,19 @@ namespace JumpInSpace.Gameplay.Levels {
         
         [SerializeField]
         string id;
+
+        [Header("Economy")]
+        [SerializeField]
+        int priceForCompletingLevel;
         
+        [SerializeField]
+        float timeToCompleteLevelSec;
+
         public string LevelName => levelName;
         public string Id => id;
+
+        public int MoneyForCompleting => priceForCompletingLevel;
+        public float TimeToComplete => timeToCompleteLevelSec;
 
         public void Load() {
             SceneManager.LoadScene(sceneFilename);

@@ -14,14 +14,21 @@ namespace JumpInSpace.Gameplay.UI.Levels {
         Button container;
         Label levelName;
 
-        public VisualElement Initialize(string levelName) {
+        public string LevelName {
+            set => levelName.text = value;
+        }
+
+        public bool Completed {
+            set => levelName.text = value ? "Completed" : levelName.text;
+        }
+
+        public VisualElement Initialize() {
 
             rootEl = levelCardAsset.Instantiate();
             container = rootEl.Q<Button>("LevelCard");
-            this.levelName = rootEl.Q<Label>("LevelName");
+            levelName = rootEl.Q<Label>("LevelName");
 
             SetupEvents();
-            SetupData(levelName);
 
             return rootEl;
         }
@@ -31,10 +38,6 @@ namespace JumpInSpace.Gameplay.UI.Levels {
             container.clicked += () => {
                 clicked?.Invoke();
             };
-        }
-
-        void SetupData(string levelName) {
-            this.levelName.text = levelName;
         }
     }
 }

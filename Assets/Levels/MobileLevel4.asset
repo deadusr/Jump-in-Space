@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: MobileLevel4
   sceneFilename: MobileLevel4
+  id: level_4
+  priceForCompletingLevel: 400
+  timeToCompleteLevelSec: 30

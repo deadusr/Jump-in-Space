@@ -9,7 +9,6 @@ namespace JumpInSpace.Utils {
     }
 
     public class CameraFollower : MonoBehaviour {
-        [SerializeField]
         Transform followTf;
 
         [SerializeField]
@@ -34,13 +33,18 @@ namespace JumpInSpace.Utils {
         Vector3 startPosition;
         float t;
 
+        public void SetupFollowTransform(Transform tf) {
+            followTf = tf;
+        }
+
 
         void Start() {
             camera = GetComponent<Camera>();
         }
 
         void Update() {
-
+            if(!followTf)
+                return;
             if (mode == CameraMode.Follow) {
                 float camHalfHeight = camera.orthographicSize;
                 float camHalfWidth = camera.aspect * camHalfHeight;

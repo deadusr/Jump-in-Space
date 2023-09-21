@@ -19,12 +19,13 @@ namespace JumpInSpace.Gameplay.UI.Arena {
 
         void Start() {
             arenaUI.LoadLevels(LevelManager.Instance.ArenaLevels);
-            arenaUI.Username = AccountManager.Instance.Username;
+            arenaUI.Username = AccountManagerService.Username;
         }
 
 
         void OnselectLevel(Level level) {
-            LevelManager.Instance.LoadLevel(level);
+            LevelManager.Instance.SelectLevel(level);
+            LevelManager.Instance.LoadGarage();
         }
 
 

@@ -15,3 +15,5 @@ MonoBehaviour:
   levelName: ArenaLevel1
   sceneFilename: ArenaLevel1
   id: arena_level_1
+  priceForCompletingLevel: 212
+  timeToCompleteLevelSec: 11.1

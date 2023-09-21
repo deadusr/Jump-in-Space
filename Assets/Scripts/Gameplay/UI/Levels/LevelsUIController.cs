@@ -23,7 +23,8 @@ namespace JumpInSpace.Gameplay.UI.Levels {
 
 
         void OnselectLevel(Level level) {
-            LevelManager.Instance.LoadLevel(level);
+            LevelManager.Instance.SelectLevel(level);
+            LevelManager.Instance.LoadGarage();
         }
         
         void OnGoBack() {

@@ -5,12 +5,16 @@ using JumpInSpace.UnityServices;
 
 namespace JumpInSpace {
     public class ApplicationController : MonoBehaviour {
+
+        [SerializeField]
+        GameObject setupGameObject;
         void Awake() {
             DontDestroyOnLoad(gameObject);
         }
         async void Start() {
-            await AccountManager.Instance.InitUnityServices();
-            await AccountManager.Instance.SignInCachedUserAsync();
+            await AccountManagerService.InitUnityServices();
+            await AccountManagerService.SignInCachedUserAsync();
+            setupGameObject.SetActive(true);
             SceneManager.LoadScene("MainScreen");
         }
     }

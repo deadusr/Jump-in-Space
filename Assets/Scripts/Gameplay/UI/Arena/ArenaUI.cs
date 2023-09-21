@@ -63,9 +63,9 @@ namespace JumpInSpace.Gameplay.UI.Arena {
 
 
             foreach (var level in levels) {
-                var rank = await LeaderboardManager.Instance.GetPlayerRank(level.Id);
-                var time = await LeaderboardManager.Instance.GetPlayerScore(level.Id);
-                var scoresCount = await LeaderboardManager.Instance.GetScoresCount(level.Id);
+                var rank = await LeaderboardManager.GetPlayerRank(level.Id);
+                var time = await LeaderboardManager.GetPlayerScore(level.Id);
+                var scoresCount = await LeaderboardManager.GetScoresCount(level.Id);
                 var card = new ArenaLevelCard();
                 card.clicked += () => {
                     OnSelectLevel(level);

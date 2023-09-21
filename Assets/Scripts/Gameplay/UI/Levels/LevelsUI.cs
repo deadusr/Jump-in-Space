@@ -55,7 +55,9 @@ namespace JumpInSpace.Gameplay.UI.Levels {
                 card.clicked += () => {
                     OnSelectLevel(level);
                 };
-                levelsContainer.Add(card.Initialize(level.LevelName));
+                levelsContainer.Add(card.Initialize());
+                card.LevelName = level.LevelName;
+                card.Completed = LevelManager.Instance.IsLevelCompleted(level);
             }
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JumpInSpace.Gameplay.Economy;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using JumpInSpace.Gameplay.Levels;
@@ -23,6 +24,8 @@ namespace JumpInSpace.Gameplay {
         public GameMode Mode => mode;
 
         public void StartGame() {
+            EconomyManager.Instance.BuyRocket("rocket-1");
+            
             switch (mode) {
                 case GameMode.Common:
                     ShowStages();

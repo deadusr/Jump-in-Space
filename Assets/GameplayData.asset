@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4523e4c94e364a119e522acde9589e31, type: 3}
+  m_Name: GameplayData
+  m_EditorClassIdentifier: 
+  rockets:
+  - {fileID: 11400000, guid: a425ba10e3719f841bbb4137b2c01206, type: 2}
+  - {fileID: 11400000, guid: fff4ce8202d9dd54dabba8bb9244c36f, type: 2}
+  stages:
+  - {fileID: 11400000, guid: aec7ce963ca4dc0479ef004f06b0d435, type: 2}
