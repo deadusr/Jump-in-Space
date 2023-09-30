@@ -2,6 +2,7 @@
 using JumpInSpace.Gameplay.UI.UIPanel;
 using UnityEngine;
 using JumpInSpace.UnityServices;
+using UnityEngine.SceneManagement;
 
 namespace JumpInSpace.Gameplay.UI.MainMenu {
     public class MainMenuUIController : MonoBehaviour {
@@ -19,11 +20,13 @@ namespace JumpInSpace.Gameplay.UI.MainMenu {
         void OnEnable() {
             mainMenuUI.clickLevelsButton += OnClickLevels;
             mainMenuUI.clickArenaButton += OnClickArena;
+            mainMenuUI.clickEditorButton += OnClickEditor;
         }
 
         void OnDisable() {
             mainMenuUI.clickLevelsButton -= OnClickLevels;
             mainMenuUI.clickArenaButton -= OnClickArena;
+            mainMenuUI.clickEditorButton -= OnClickEditor;
         }
 
         void OnClickLevels() {
@@ -34,6 +37,10 @@ namespace JumpInSpace.Gameplay.UI.MainMenu {
         void OnClickArena() {
             GameplayManager.Instance.SetGameMode(GameMode.Arena);
             GameplayManager.Instance.StartGame();
+        }
+
+        void OnClickEditor() {
+            SceneManager.LoadScene("LevelEditor");
         }
 
         void Update() {

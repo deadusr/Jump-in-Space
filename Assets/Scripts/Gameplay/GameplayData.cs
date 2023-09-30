@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JumpInSpace.Gameplay.Levels;
 using UnityEngine;
@@ -11,6 +12,19 @@ namespace JumpInSpace.Gameplay {
 
         [SerializeField]
         List<Stage> stages;
+        
+        [SerializeField] List<GameplayObject> gameplayObjects;
+        // Dictionary<string, GameplayObject> gameplayObjectsDict = new Dictionary<string, GameplayObject>();
+
+        public List<GameplayObject> GameplayObjects => gameplayObjects;
+
+        // void Awake() {
+        //     foreach (var gameplayObject in gameplayObjects) {
+        //         gameplayObjectsDict.Add(gameplayObject.Id, gameplayObject);
+        //     }
+        // }
+        //
+        public GameplayObject GetGameplayObject(string id) => gameplayObjects.Find(el => el.Id == id);
 
         public Dictionary<string, RocketSpec> Rockets => rockets.ToDictionary(k => k.Id);
     }

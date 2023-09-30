@@ -57,6 +57,9 @@ EditorBuildSettings:
     path: Assets/Scenes/GraphicTest.unity
     guid: fccad73da3dfe4543b638c536d5bd802
   - enabled: 1
+    path: Assets/Scenes/LevelEditor.unity
+    guid: 81f08c55e2bfae348bc4261367f8d054
+  - enabled: 1
     path: Assets/Scenes/Stages.unity
     guid: ec740b5206ef0e94ea208eb2f383ca9f
   - enabled: 1

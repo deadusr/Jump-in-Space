@@ -1,0 +1,29 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="ObjectPropertiesPanel" style="position: relative; height: 100%; top: auto; right: auto; background-color: rgb(40, 51, 89); padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; width: 250px; display: flex; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+        <ui:VisualElement style="margin-bottom: 15px;">
+            <ui:Label text="Position" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); -unity-font-style: normal; font-size: 16px;" />
+            <ui:VisualElement name="Position" style="flex-direction: row; align-items: center; margin-bottom: 0; justify-content: flex-start;">
+                <ui:Label text="X" display-tooltip-when-elided="true" style="color: rgb(255, 0, 0);" />
+                <ui:TextField picking-mode="Ignore" name="PositionX" value="0" mask-character="212" style="width: 70px;" />
+                <ui:Label text="Y" display-tooltip-when-elided="true" style="color: rgb(0, 255, 58);" />
+                <ui:TextField picking-mode="Ignore" name="PositionY" value="0" style="width: 70px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="margin-bottom: 15px;">
+            <ui:Label text="Rotation" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); -unity-font-style: normal; font-size: 16px;" />
+            <ui:VisualElement name="Rotation" style="flex-direction: row; align-items: center; margin-bottom: 0; justify-content: flex-start;">
+                <ui:Label text="X" display-tooltip-when-elided="true" style="color: rgb(255, 0, 0);" />
+                <ui:TextField picking-mode="Ignore" value="0" name="RotationX" style="width: 170px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="margin-bottom: 15px;">
+            <ui:Label text="Scale" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); -unity-font-style: normal; font-size: 16px;" />
+            <ui:VisualElement name="Scale" style="flex-direction: row; align-items: center; margin-bottom: 0; justify-content: flex-start;">
+                <ui:Label text="X" display-tooltip-when-elided="true" style="color: rgb(255, 0, 0);" />
+                <ui:TextField picking-mode="Ignore" value="1" name="ScaleX" style="width: 70px;" />
+                <ui:Label text="Y" display-tooltip-when-elided="true" style="color: rgb(0, 255, 58);" />
+                <ui:TextField picking-mode="Ignore" value="1" name="ScaleY" style="width: 70px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

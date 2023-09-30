@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="AddObjectsPanel" style="position: relative; height: 100%; top: auto; right: auto; background-color: rgb(40, 51, 89); padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; width: 550px; display: flex; left: auto;">
+        <ui:VisualElement name="GameplayObjectsContainer" style="flex-direction: row;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -17,3 +17,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fff4ce8202d9dd54dabba8bb9244c36f, type: 2}
   stages:
   - {fileID: 11400000, guid: aec7ce963ca4dc0479ef004f06b0d435, type: 2}
+  gameplayObjects:
+  - {fileID: 11400000, guid: 0a23913528cc9d2409978191ab1c96b9, type: 2}

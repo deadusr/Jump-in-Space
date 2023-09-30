@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Button display-tooltip-when-elided="true" name="GameplayObjectCard" style="width: 120px; height: 150px; background-color: rgba(135, 140, 255, 0.47); margin-right: 20px; margin-left: 0; margin-top: 0; margin-bottom: 20px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; align-items: center;">
+        <ui:Label text="Moving meteors" display-tooltip-when-elided="true" name="ObjectName" style="width: 100%; -unity-text-align: upper-center; white-space: normal; color: rgb(255, 255, 255); margin-bottom: 10px;" />
+        <ui:VisualElement name="Image" style="background-image: url(&apos;project://database/Assets/Images/meteroid.png?fileID=2800000&amp;guid=eca46a015f4e3d5429208bf71ee4379c&amp;type=3#meteroid&apos;); width: 64px; height: 64px;" />
+    </ui:Button>
+</ui:UXML>

@@ -11,9 +11,11 @@ namespace JumpInSpace.Gameplay.UI.MainMenu {
 
         public Action clickLevelsButton;
         public Action clickArenaButton;
+        public Action clickEditorButton;
 
         Button levelsButton;
         Button arenaButton;
+        Button editorButton;
         Label username;
 
         public string UserName {
@@ -27,11 +29,13 @@ namespace JumpInSpace.Gameplay.UI.MainMenu {
             var rootEl = UIDocument.rootVisualElement;
             levelsButton = rootEl.Q<Button>("LevelsButton");
             arenaButton = rootEl.Q<Button>("ArenaButton");
+            editorButton = rootEl.Q<Button>("EditorButton");
             username = rootEl.Q<Label>("Username");
 
 
             levelsButton.clicked += OnClickLevelsButton;
             arenaButton.clicked += OnClickArenaButton;
+            editorButton.clicked += OnClickEditorButton;
         }
 
         void OnClickLevelsButton() {
@@ -40,6 +44,10 @@ namespace JumpInSpace.Gameplay.UI.MainMenu {
         
         void OnClickArenaButton() {
             clickArenaButton?.Invoke();
+        }
+        
+        void OnClickEditorButton() {
+            clickEditorButton?.Invoke();
         }
     }
 

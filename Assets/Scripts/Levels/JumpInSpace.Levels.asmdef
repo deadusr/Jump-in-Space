@@ -1,11 +1,9 @@
 {
-    "name": "JumpInSpace.Gameplay",
+    "name": "JumpInSpace.Levels",
     "rootNamespace": "",
     "references": [
-        "Unity.Services.Core",
-        "Unity.Services.Authentication",
         "JumpInSpace.Utils",
-        "JumpInSpace.UnityServices"
+        "JumpInSpace.Gameplay"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

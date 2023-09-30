@@ -15,7 +15,7 @@ namespace JumpInSpace {
             await AccountManagerService.InitUnityServices();
             await AccountManagerService.SignInCachedUserAsync();
             setupGameObject.SetActive(true);
-            SceneManager.LoadScene("MainScreen");
+            // SceneManager.LoadScene("MainScreen");
         }
     }
 }
